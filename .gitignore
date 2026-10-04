@@ -7,3 +7,6 @@ dist/
 *.db
 .env
 spec.txt
+
+# Impeccable engine binary (17 MB, per-OS; the launcher downloads it again when missing)
+.cursor/skills/impeccable/scripts/bin/
