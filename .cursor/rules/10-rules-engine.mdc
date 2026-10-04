@@ -1,0 +1,30 @@
+---
+description: Eligibility engine rules (tri-state logic, statuses, estimators, path planner)
+globs: backend/app/engine/**/*.py,backend/tests/**/*.py
+alwaysApply: false
+---
+# Eligibility engine
+Port data/reference_engine.py; results must equal data/expected.json exactly.
+
+Criterion -> TRUE | FALSE | UNKNOWN | N/A
+- 'when' false -> N/A; 'when' unknown -> UNKNOWN; field missing -> UNKNOWN;
+  value in unknown_values -> UNKNOWN; else apply op (eq, neq, in, not_in, gt, gte, lt, lte,
+  between, is_true, is_false).
+
+Scheme status, in this order:
+1. status == "announced" -> WATCHLIST
+2. kind == "registration" and already registered -> NOT_APPLICABLE
+3. hard FALSE exists: all have "fix" and count <= 2 -> NEAR_MISS, else NOT_ELIGIBLE
+4. hard UNKNOWN exists -> LIKELY
+5. else ELIGIBLE
+Counts: met = hard TRUE, total = hard non-N/A, unknown = hard UNKNOWN.
+
+Derived fields (derive.py): enterprise_size (1 Apr 2025 limits: micro <= 2.5 cr investment AND
+<= 10 cr turnover; small 25/100; medium 125/500), pmegp_special, female_or_scst,
+similar_loan_last_5y, udyogini_income_ok. See AGENTS.md 2.3.
+
+Estimators return {grant_min, grant_max, credit}. Path planner: candidates = ELIGIBLE/LIKELY/
+NEAR_MISS, not registration, grant_max > 0; drop subsets containing a conflict pair; keep maximal
+subsets; sort by grant_max desc. Never add credit to grants.
+Display: Udyam Assist only if no PAN; WATCHLIST only if no hard FALSE; hide NOT_APPLICABLE.
+Every function gets a pytest test.

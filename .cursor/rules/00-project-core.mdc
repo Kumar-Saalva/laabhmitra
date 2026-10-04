@@ -1,0 +1,23 @@
+---
+description: Core, non-negotiable rules for the LaabhMitra prototype
+alwaysApply: true
+---
+# LaabhMitra: project core
+Government benefits copilot for small businesses. Full spec: AGENTS.md (read it before any task).
+Data source of truth: data/schemes.seed.json, data/personas.json, data/expected.json.
+
+- Eligibility statuses and rupee amounts come ONLY from the deterministic engine in backend/app/engine.
+  LLM output must never change a status or an amount.
+- Build milestone by milestone (AGENTS.md section 3 (Milestones)). Do not start the next milestone until tests pass.
+- Stack: Python 3.11 + FastAPI + Pydantic v2 + SQLModel/SQLite (backend); React + Vite + TypeScript +
+  Tailwind (frontend). Do not add frameworks without asking.
+- Never modify data/*.json to make a test pass. Fix the code instead.
+- Never scrape or call government portals at runtime.
+- Never collect or store Aadhaar, PAN or bank account numbers, or passwords. Booleans only (pan_available).
+- Sensitive fields (gender, social category, disability, widow status, income) are optional,
+  with "prefer not to say" and a short reason for asking.
+- Wording in UI and LLM text: "may be eligible", "estimated". Never "guaranteed".
+- Grants and credit are separate buckets and are never added together.
+- The app must run end to end with LLM_PROVIDER=mock and no network.
+- Money = integer rupees; display in Indian format (e.g., 2,80,000 with the rupee sign).
+- Before coding: list the files you will change. After coding: say how to run and test it.

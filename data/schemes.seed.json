@@ -1,0 +1,1161 @@
+{
+ "schemes": [
+  {
+   "id": "udyam_registration",
+   "short_name": "Udyam Registration",
+   "name": "Udyam Registration (MSME registration)",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of MSME",
+   "kind": "registration",
+   "status": "active",
+   "summary_plain": "Free government registration that officially recognises your business as a Micro, Small or Medium Enterprise. Many schemes and bank programmes ask for it.",
+   "criteria": [
+    {
+     "id": "not_yet",
+     "label": "You are not yet Udyam-registered",
+     "field": "udyam_registered",
+     "op": "is_false",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "pan",
+     "label": "You have a PAN",
+     "field": "pan_available",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "fix": {
+      "action_id": "get_pan",
+      "label": "Apply for a PAN card (needed for Udyam registration)"
+     },
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "non_monetary",
+     "label": "MSME recognition; unlocks schemes that require Udyam (e.g., ZED, ME-Card, most bank MSME loans)"
+    }
+   ],
+   "documents": [
+    "Aadhaar (OTP on linked mobile)",
+    "PAN",
+    "Bank account details",
+    "GSTIN (if GST-registered)"
+   ],
+   "application": {
+    "channel": "Official portal (free)",
+    "url": "https://udyamregistration.gov.in",
+    "steps": [
+     "Open the official portal",
+     "Verify Aadhaar with OTP",
+     "Enter PAN and business details",
+     "Submit; download the Udyam certificate"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "Udyam Registration portal (official)",
+     "url": "https://udyamregistration.gov.in",
+     "publisher": "Ministry of MSME"
+    }
+   ],
+   "warning": "Registration is FREE on the official portal. Warn users about look-alike paid sites.",
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "udyam_assist",
+   "short_name": "Udyam Assist",
+   "name": "Udyam Assist Platform (for informal micro enterprises)",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of MSME (with SIDBI)",
+   "kind": "registration",
+   "status": "verify",
+   "status_note": "Intended for informal micro enterprises outside GST. Confirm exact eligibility (PAN/GST rules) on the official portal before demo.",
+   "summary_plain": "A simpler registration route for very small informal businesses that are not GST-registered, so they are counted as micro enterprises for priority-sector lending.",
+   "criteria": [
+    {
+     "id": "not_yet",
+     "label": "Not yet Udyam-registered",
+     "field": "udyam_registered",
+     "op": "is_false",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "no_gst",
+     "label": "Not GST-registered",
+     "field": "gst_registered",
+     "op": "is_false",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "non_monetary",
+     "label": "Formal recognition as an informal micro enterprise (priority-sector lending)"
+    }
+   ],
+   "documents": [
+    "Aadhaar",
+    "Bank account details"
+   ],
+   "application": {
+    "channel": "Via designated agencies / official portal",
+    "url": "https://udyamregistration.gov.in",
+    "steps": [
+     "Approach a designated agency or the official portal",
+     "Complete Aadhaar-based registration"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "Udyam Registration portal (official)",
+     "url": "https://udyamregistration.gov.in",
+     "publisher": "Ministry of MSME"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "pmegp",
+   "short_name": "PMEGP",
+   "name": "Prime Minister's Employment Generation Programme (PMEGP)",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of MSME (implemented by KVIC, KVIBs, DICs)",
+   "kind": "subsidy",
+   "status": "active",
+   "summary_plain": "Helps you START A NEW unit: the bank gives a loan and the government pays 15%-35% of the project cost as a one-time margin-money subsidy.",
+   "criteria": [
+    {
+     "id": "age",
+     "label": "Owner is 18 or older",
+     "field": "owner_age",
+     "op": "gte",
+     "value": 18,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "new",
+     "label": "It is a NEW project (not an existing unit)",
+     "field": "is_new_project",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1",
+     "note": "Assistance is only for new projects sanctioned under PMEGP."
+    },
+    {
+     "id": "activity",
+     "label": "Manufacturing or service activity",
+     "field": "business_activity",
+     "op": "in",
+     "value": [
+      "manufacturing",
+      "service"
+     ],
+     "hard": true,
+     "unknown_values": [
+      "trading"
+     ],
+     "source_ref": "s1",
+     "note": "Business/trading projects are allowed only in limited cases (cap at par with service). Check the negative list."
+    },
+    {
+     "id": "cap_mfg",
+     "label": "Project cost within ₹50 lakh (manufacturing)",
+     "field": "project_cost_inr",
+     "op": "lte",
+     "value": 5000000,
+     "hard": true,
+     "when": {
+      "field": "business_activity",
+      "op": "eq",
+      "value": "manufacturing"
+     },
+     "source_ref": "s1"
+    },
+    {
+     "id": "cap_svc",
+     "label": "Project cost within ₹20 lakh (service/business)",
+     "field": "project_cost_inr",
+     "op": "lte",
+     "value": 2000000,
+     "hard": true,
+     "when": {
+      "field": "business_activity",
+      "op": "in",
+      "value": [
+       "service",
+       "trading"
+      ]
+     },
+     "source_ref": "s1"
+    },
+    {
+     "id": "edu_mfg",
+     "label": "Class 8 pass (needed above ₹10 lakh, manufacturing)",
+     "field": "education_8th_pass",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "when": {
+      "all": [
+       {
+        "field": "business_activity",
+        "op": "eq",
+        "value": "manufacturing"
+       },
+       {
+        "field": "project_cost_inr",
+        "op": "gt",
+        "value": 1000000
+       }
+      ]
+     },
+     "source_ref": "s1"
+    },
+    {
+     "id": "edu_svc",
+     "label": "Class 8 pass (needed above ₹5 lakh, service/business)",
+     "field": "education_8th_pass",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "when": {
+      "all": [
+       {
+        "field": "business_activity",
+        "op": "in",
+        "value": [
+         "service",
+         "trading"
+        ]
+       },
+       {
+        "field": "project_cost_inr",
+        "op": "gt",
+        "value": 500000
+       }
+      ]
+     },
+     "source_ref": "s1"
+    },
+    {
+     "id": "no_prior",
+     "label": "Has not already received a government subsidy for this unit",
+     "field": "prior_govt_subsidy",
+     "op": "is_false",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "grant",
+     "label": "Margin-money subsidy on project cost",
+     "estimator": "pmegp_subsidy"
+    },
+    {
+     "type": "credit",
+     "label": "Bank term loan for the rest of the project cost (own contribution 5-10%)"
+    }
+   ],
+   "rates": {
+    "general": {
+     "urban": 0.15,
+     "rural": 0.25
+    },
+    "special": {
+     "urban": 0.25,
+     "rural": 0.35
+    },
+    "own_contribution": {
+     "general": 0.1,
+     "special": 0.05
+    },
+    "special_category_definition": "SC/ST/OBC/Minorities/Women/Ex-servicemen/Differently-abled/Transgender/NER/Hill & Border/Aspirational districts"
+   },
+   "documents": [
+    "Aadhaar",
+    "PAN",
+    "Project report",
+    "Education certificate (if project above the class-8 threshold)",
+    "Special-category certificate (if claimed)",
+    "Rural-area certificate (if rural)",
+    "Bank details"
+   ],
+   "application": {
+    "channel": "PMEGP e-portal (KVIC)",
+    "url": "https://www.kviconline.gov.in/pmegpeportal/",
+    "steps": [
+     "Fill the online application",
+     "Upload project report and documents",
+     "District task force / agency review",
+     "Bank sanctions loan",
+     "EDP training, then subsidy released to the loan account"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "PMEGP scheme page, District Magistrate (Central), Govt of NCT of Delhi",
+     "url": "https://dccentral.delhi.gov.in/en/dccentral/pmegp-scheme",
+     "publisher": "Govt of NCT of Delhi"
+    },
+    {
+     "id": "s2",
+     "title": "Revised PMEGP guidelines (DKVIB)",
+     "url": "https://dkvib.delhi.gov.in/dkvib/revised-scheme-guidelines-prime-minister-employeement-generation-programmepmegp",
+     "publisher": "Delhi Khadi & Village Industries Board"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "mudra",
+   "short_name": "PM Mudra (PMMY)",
+   "name": "Pradhan Mantri MUDRA Yojana",
+   "level": "central",
+   "state": null,
+   "ministry": "Department of Financial Services",
+   "kind": "credit",
+   "status": "active",
+   "summary_plain": "Collateral-free loans for non-farm micro/small businesses: Shishu up to ₹50,000; Kishore up to ₹5 lakh; Tarun up to ₹10 lakh; Tarun Plus up to ₹20 lakh (after repaying a Tarun loan).",
+   "criteria": [
+    {
+     "id": "nonfarm",
+     "label": "Non-farm business (manufacturing, trading, service)",
+     "field": "business_activity",
+     "op": "in",
+     "value": [
+      "manufacturing",
+      "trading",
+      "service",
+      "street_vending"
+     ],
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "noncorp",
+     "label": "Non-corporate ownership (proprietorship/partnership etc.)",
+     "field": "ownership_type",
+     "op": "in",
+     "value": [
+      "proprietorship",
+      "partnership",
+      "llp",
+      "shg",
+      "other_noncorporate"
+     ],
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "cap",
+     "label": "Loan need up to ₹20 lakh",
+     "field": "loan_amount_needed_inr",
+     "op": "lte",
+     "value": 2000000,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "tarun_plus",
+     "label": "Above ₹10 lakh needs a fully repaid earlier Tarun loan",
+     "field": "previous_mudra_tarun_repaid",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "when": {
+      "field": "loan_amount_needed_inr",
+      "op": "gt",
+      "value": 1000000
+     },
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "credit",
+     "label": "Collateral-free loan (tier set by amount)",
+     "estimator": "mudra_tier"
+    }
+   ],
+   "documents": [
+    "Identity & address proof",
+    "Business proof",
+    "Bank statements",
+    "Quotation for equipment (if any)"
+   ],
+   "application": {
+    "channel": "Any bank/NBFC/MFI branch or Jan Samarth portal",
+    "url": "https://www.jansamarth.in",
+    "steps": [
+     "Choose loan category by amount",
+     "Apply at a lender or on Jan Samarth",
+     "Lender appraises and sanctions"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "Tarun Plus (₹20 lakh) notified Oct 2024: summary",
+     "url": "https://anantamias.com/mudra-yojana/",
+     "publisher": "Secondary summary of official notification"
+    },
+    {
+     "id": "s2",
+     "title": "Official MUDRA website",
+     "url": "https://www.mudra.org.in",
+     "publisher": "MUDRA"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "cgtmse",
+   "short_name": "CGTMSE",
+   "name": "Credit Guarantee Scheme for Micro and Small Enterprises (CGTMSE)",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of MSME & SIDBI",
+   "kind": "credit_guarantee",
+   "status": "active",
+   "summary_plain": "A government guarantee to your bank so it can lend to a micro/small business WITHOUT collateral. Your bank applies for the guarantee, not you.",
+   "criteria": [
+    {
+     "id": "mse",
+     "label": "Business is Micro or Small (by investment & turnover)",
+     "field": "enterprise_size",
+     "op": "in",
+     "value": [
+      "micro",
+      "small"
+     ],
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "udyam",
+     "label": "Udyam-registered (banks ask for it)",
+     "field": "udyam_registered",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "fix": {
+      "action_id": "register_udyam",
+      "label": "Register on the Udyam portal (free, online; Aadhaar OTP + PAN needed)",
+      "unlocks_hint": true
+     },
+     "source_ref": "s1",
+     "note": "Practical requirement used by lenders; confirm with your bank."
+    },
+    {
+     "id": "cap",
+     "label": "Credit need within ₹10 crore",
+     "field": "loan_amount_needed_inr",
+     "op": "lte",
+     "value": 100000000,
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "credit_guarantee",
+     "label": "Collateral-free credit cover up to ₹10 crore (75%-90% guarantee; fee from 0.37% p.a.)"
+    }
+   ],
+   "documents": [
+    "Udyam certificate",
+    "KYC",
+    "Bank loan application"
+   ],
+   "application": {
+    "channel": "Through your bank (Member Lending Institution)",
+    "url": "https://www.cgtmse.in",
+    "steps": [
+     "Ask your bank for a CGTMSE-covered loan",
+     "Bank applies for the guarantee",
+     "Annual guarantee fee as per slab"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "CGTMSE: guarantee ceiling ₹5 cr to ₹10 cr from 1 Apr 2025 (SBI circular summary)",
+     "url": "https://sbi.bank.in/documents/136/49244919/MODIFICATION+-+CGTMSE+GUARANTEE+COVERAGE+UPTO+10+CR.pdf/281d80e2-b952-b553-ffb6-f8725fbf5581",
+     "publisher": "State Bank of India"
+    },
+    {
+     "id": "s2",
+     "title": "CGTMSE official site",
+     "url": "https://www.cgtmse.in",
+     "publisher": "CGTMSE"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "pm_vishwakarma",
+   "short_name": "PM Vishwakarma",
+   "name": "PM Vishwakarma",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of MSME",
+   "kind": "composite",
+   "status": "active",
+   "summary_plain": "For artisans in 18 traditional trades (e.g., tailor, carpenter): recognition, training with ₹500/day stipend, ₹15,000 toolkit e-voucher, loans up to ₹3 lakh at 5%.",
+   "criteria": [
+    {
+     "id": "age",
+     "label": "Owner is 18 or older",
+     "field": "owner_age",
+     "op": "gte",
+     "value": 18,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "trade",
+     "label": "Works in one of the 18 listed trades",
+     "field": "trade",
+     "op": "in",
+     "value": [
+      "carpenter",
+      "boat_maker",
+      "armourer",
+      "blacksmith",
+      "hammer_toolkit_maker",
+      "locksmith",
+      "goldsmith",
+      "potter",
+      "sculptor_stone_breaker",
+      "cobbler",
+      "mason",
+      "basket_mat_broom_coir_maker",
+      "doll_toy_maker",
+      "barber",
+      "garland_maker",
+      "washerman",
+      "tailor",
+      "fishing_net_maker"
+     ],
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "self",
+     "label": "Self-employed, working with hands and tools",
+     "field": "self_employed",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "no_similar",
+     "label": "No PMEGP/Mudra/PM SVANidhi loan in the last 5 years",
+     "field": "similar_loan_last_5y",
+     "op": "is_false",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1",
+     "note": "Limited exceptions for fully repaid loans: verify."
+    },
+    {
+     "id": "not_govt",
+     "label": "No government employee in the family",
+     "field": "govt_employee_in_family",
+     "op": "is_false",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "grant",
+     "label": "Toolkit incentive (e-voucher)",
+     "amount_inr": 15000
+    },
+    {
+     "type": "grant",
+     "label": "Training stipend ₹500/day during basic training"
+    },
+    {
+     "type": "credit",
+     "label": "Collateral-free loan ₹1 lakh + ₹2 lakh at 5% interest",
+     "amount_inr": 300000
+    }
+   ],
+   "documents": [
+    "Aadhaar (biometric verification)",
+    "Bank account",
+    "Ration card (family details)"
+   ],
+   "application": {
+    "channel": "CSC centre / official portal",
+    "url": "https://pmvishwakarma.gov.in",
+    "steps": [
+     "Register at a Common Service Centre (Aadhaar biometric)",
+     "Three-stage verification",
+     "Basic training then toolkit voucher",
+     "Apply for tranche-1 loan"
+    ]
+   },
+   "conflict_note": "Taking a PMEGP, Mudra or PM SVANidhi loan now can make you ineligible for PM Vishwakarma for 5 years.",
+   "sources": [
+    {
+     "id": "s1",
+     "title": "PM Vishwakarma scheme summary (benefits, 18 trades, conditions)",
+     "url": "https://pmyojnaupdates.com/pm-vishwakarma-apply-online/",
+     "publisher": "Secondary summary"
+    },
+    {
+     "id": "s2",
+     "title": "PM Vishwakarma official portal",
+     "url": "https://pmvishwakarma.gov.in",
+     "publisher": "Ministry of MSME"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "pm_svanidhi",
+   "short_name": "PM SVANidhi",
+   "name": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of Housing & Urban Affairs",
+   "kind": "credit",
+   "status": "active",
+   "summary_plain": "Small working-capital loans for street vendors in three steps (₹15,000, then ₹25,000, then ₹50,000) plus digital-payment benefits. Extended to 31 March 2030.",
+   "criteria": [
+    {
+     "id": "vendor",
+     "label": "You are a street vendor",
+     "field": "business_activity",
+     "op": "eq",
+     "value": "street_vending",
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "proof",
+     "label": "Have a vending certificate/ID or Letter of Recommendation",
+     "field": "has_vending_proof",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "credit",
+     "label": "Loan tranches ₹15,000 → ₹25,000 → ₹50,000",
+     "amount_inr": 15000
+    },
+    {
+     "type": "credit",
+     "label": "UPI-linked RuPay credit card up to ₹30,000 (restructured scheme)"
+    }
+   ],
+   "documents": [
+    "Aadhaar",
+    "Vending certificate / ID / LoR",
+    "Bank account"
+   ],
+   "application": {
+    "channel": "Official portal / lender / CSC",
+    "url": "https://pmsvanidhi.mohua.gov.in",
+    "steps": [
+     "Apply on the portal or via a lender/CSC",
+     "Lender sanctions tranche 1",
+     "Repay on time to unlock the next tranche"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "PM SVANidhi: six-year figures and restructuring (to 2030)",
+     "url": "https://swarajyamag.com/business/pm-svanidhi-completes-six-years-with-over-112-lakh-loans-worth-rs-17800-crore-disbursed-to-street-vendors",
+     "publisher": "Swarajya"
+    },
+    {
+     "id": "s2",
+     "title": "Cabinet approves restructuring & extension of PM SVANidhi",
+     "url": "https://visionias.in/current-affairs/news-today/2025-08-28/schemes-in-news/cabinet-approves-restructuring-extension-of-pm-svanidhi-scheme",
+     "publisher": "Secondary summary"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "stand_up_india",
+   "short_name": "Stand-Up India",
+   "name": "Stand-Up India",
+   "level": "central",
+   "state": null,
+   "ministry": "Department of Financial Services",
+   "kind": "credit",
+   "status": "verify",
+   "status_note": "Scheme was extended up to 2025; a revamp was announced in March 2026. Confirm current status on standupmitra.in or with a bank before showing as available.",
+   "summary_plain": "Bank loans from ₹10 lakh to ₹1 crore for women and SC/ST entrepreneurs setting up a NEW (greenfield) enterprise.",
+   "criteria": [
+    {
+     "id": "who",
+     "label": "Woman, or SC/ST entrepreneur",
+     "field": "female_or_scst",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "age",
+     "label": "18 or older",
+     "field": "owner_age",
+     "op": "gte",
+     "value": 18,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "greenfield",
+     "label": "First-time (greenfield) enterprise",
+     "field": "is_new_project",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "min",
+     "label": "Loan of at least ₹10 lakh",
+     "field": "loan_amount_needed_inr",
+     "op": "gte",
+     "value": 1000000,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "max",
+     "label": "Loan up to ₹1 crore",
+     "field": "loan_amount_needed_inr",
+     "op": "lte",
+     "value": 10000000,
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "credit",
+     "label": "Composite bank loan ₹10 lakh to ₹1 crore (term loan + working capital)"
+    }
+   ],
+   "documents": [
+    "KYC",
+    "Caste certificate (if SC/ST)",
+    "Project report",
+    "Bank details"
+   ],
+   "application": {
+    "channel": "Bank branch / Stand-Up Mitra / Jan Samarth",
+    "url": "https://www.standupmitra.in",
+    "steps": [
+     "Check status",
+     "Apply via a bank or the portal"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "Stand-Up India scheme overview incl. March 2026 revamp note",
+     "url": "https://www.ibef.org/government-schemes/stand-up-india",
+     "publisher": "IBEF"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "zed",
+   "short_name": "ZED Certification",
+   "name": "MSME Sustainable (ZED) Certification Scheme",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of MSME",
+   "kind": "certification",
+   "status": "verify",
+   "status_note": "Official guideline PDF states benefits valid till 31 March 2026. Confirm continuation on zed.msme.gov.in.",
+   "summary_plain": "Quality certification (Bronze/Silver/Gold). Govt pays 80% (micro), 60% (small) or 50% (medium) of the cost; a ₹10,000 joining reward makes Bronze effectively free.",
+   "criteria": [
+    {
+     "id": "udyam",
+     "label": "Udyam-registered",
+     "field": "udyam_registered",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "fix": {
+      "action_id": "register_udyam",
+      "label": "Register on the Udyam portal (free, online; Aadhaar OTP + PAN needed)",
+      "unlocks_hint": true
+     },
+     "source_ref": "s1"
+    },
+    {
+     "id": "msme",
+     "label": "Micro, small or medium enterprise",
+     "field": "enterprise_size",
+     "op": "in",
+     "value": [
+      "micro",
+      "small",
+      "medium"
+     ],
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "activity",
+     "label": "Manufacturing (services: verify)",
+     "field": "business_activity",
+     "op": "in",
+     "value": [
+      "manufacturing"
+     ],
+     "hard": true,
+     "unknown_values": [
+      "service",
+      "trading"
+     ],
+     "source_ref": "s1",
+     "note": "Sources differ on whether services/trading are covered."
+    }
+   ],
+   "benefits": [
+    {
+     "type": "fee_subsidy",
+     "label": "80%/60%/50% subsidy on certification cost; ₹10,000 joining reward (Bronze effectively free)"
+    }
+   ],
+   "documents": [
+    "Udyam certificate",
+    "Basic unit details"
+   ],
+   "application": {
+    "channel": "ZED portal",
+    "url": "https://zed.msme.gov.in",
+    "steps": [
+     "Take the ZED pledge",
+     "Apply for Bronze",
+     "Self-assessment, then certification"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "MSME Sustainable (ZED) Certification Scheme guidelines (official PDF)",
+     "url": "https://www.dcmsme.gov.in/Guidelines_MSME%20Sustainable(ZED)%20Certification%20Scheme.pdf",
+     "publisher": "Office of DC (MSME)"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "me_card",
+   "short_name": "ME-Card",
+   "name": "Micro Enterprise Credit Card (ME-Card)",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of Finance (via banks)",
+   "kind": "credit",
+   "status": "verify",
+   "status_note": "Announced in Union Budget 2025-26 (₹5 lakh limit for Udyam-registered micro enterprises). Reports say banks are issuing under a model scheme; confirm with your bank.",
+   "summary_plain": "A business credit card with up to ₹5 lakh limit for micro enterprises registered on Udyam, for day-to-day working capital.",
+   "criteria": [
+    {
+     "id": "udyam",
+     "label": "Udyam-registered",
+     "field": "udyam_registered",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "fix": {
+      "action_id": "register_udyam",
+      "label": "Register on the Udyam portal (free, online; Aadhaar OTP + PAN needed)",
+      "unlocks_hint": true
+     },
+     "source_ref": "s1"
+    },
+    {
+     "id": "micro",
+     "label": "Micro enterprise",
+     "field": "enterprise_size",
+     "op": "eq",
+     "value": "micro",
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "credit",
+     "label": "Revolving credit up to ₹5 lakh",
+     "amount_inr": 500000
+    }
+   ],
+   "documents": [
+    "Udyam certificate",
+    "KYC",
+    "Bank account"
+   ],
+   "application": {
+    "channel": "Your bank",
+    "url": null,
+    "steps": [
+     "Ask your bank about the Micro Enterprise Card"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "Budget 2025-26: ₹5 lakh customised credit cards for Udyam micro enterprises",
+     "url": "https://www.tribuneindia.com/news/business/budget-2025-govt-enhances-msme-investment-limits-and-introduces-credit-cards-with-a-rs-5-lac-limit",
+     "publisher": "The Tribune (ANI)"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "ka_udyogini",
+   "short_name": "Udyogini (Karnataka)",
+   "name": "Udyogini Scheme (Karnataka State Women's Development Corporation)",
+   "level": "state",
+   "state": "KA",
+   "ministry": "Govt of Karnataka - KSWDC",
+   "kind": "subsidy",
+   "status": "verify",
+   "status_note": "Income limits, age limit and caps differ across sources (age 18-55 vs 18-45). Confirm on kswdc.karnataka.gov.in.",
+   "summary_plain": "Karnataka women entrepreneurs (mainly trade and service activities) get a bank loan of ₹1-3 lakh with a state subsidy of 30% (max ₹90,000) or 50% for SC/ST women.",
+   "criteria": [
+    {
+     "id": "state",
+     "label": "Lives in Karnataka",
+     "field": "state",
+     "op": "eq",
+     "value": "KA",
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "woman",
+     "label": "Woman entrepreneur",
+     "field": "owner_gender",
+     "op": "eq",
+     "value": "female",
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "age",
+     "label": "Age 18-55",
+     "field": "owner_age",
+     "op": "between",
+     "value": [
+      18,
+      55
+     ],
+     "hard": true,
+     "source_ref": "s1",
+     "note": "Some sources say 18-45."
+    },
+    {
+     "id": "income",
+     "label": "Family income within the limit for your category",
+     "field": "udyogini_income_ok",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1",
+     "note": "General/special: below ₹1.5 lakh; SC/ST: below ₹2 lakh; no limit for widows/disabled women."
+    },
+    {
+     "id": "activity",
+     "label": "Trade or service activity",
+     "field": "business_activity",
+     "op": "in",
+     "value": [
+      "trading",
+      "service",
+      "street_vending"
+     ],
+     "hard": true,
+     "unknown_values": [
+      "manufacturing"
+     ],
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "grant",
+     "label": "Subsidy on loan (30% up to ₹90,000; 50% for SC/ST women)",
+     "estimator": "udyogini_subsidy"
+    },
+    {
+     "type": "credit",
+     "label": "Bank loan ₹1-3 lakh"
+    }
+   ],
+   "documents": [
+    "Aadhaar",
+    "Income certificate",
+    "Caste certificate (if SC/ST)",
+    "Ration card",
+    "Bank details"
+   ],
+   "application": {
+    "channel": "KSWDC / district office",
+    "url": "https://kswdc.karnataka.gov.in",
+    "steps": [
+     "Apply to KSWDC",
+     "Bank sanctions loan",
+     "Short EDP training",
+     "Subsidy released"
+    ]
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "Udyogini scheme details (KSWDC) - summary",
+     "url": "https://projectsarthi.com/schemes/us/",
+     "publisher": "Secondary summary"
+    },
+    {
+     "id": "s2",
+     "title": "Udyogini on UMANG",
+     "url": "https://web.umang.gov.in/landing/scheme/detail/udyogini-scheme_us.html",
+     "publisher": "UMANG (Govt of India)"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  },
+  {
+   "id": "first_time_women_scst",
+   "short_name": "First-time Women/SC/ST Entrepreneurs Loan",
+   "name": "Scheme for first-time women, SC and ST entrepreneurs (Budget 2025-26)",
+   "level": "central",
+   "state": null,
+   "ministry": "Ministry of Finance",
+   "kind": "credit",
+   "status": "announced",
+   "status_note": "Announced in Union Budget 2025-26 (term loans up to ₹2 crore for 5 lakh first-time entrepreneurs). Not confirmed as operational: keep on WATCHLIST only.",
+   "summary_plain": "Announced scheme for term loans up to ₹2 crore to first-time women, SC and ST entrepreneurs.",
+   "criteria": [
+    {
+     "id": "who",
+     "label": "Woman, or SC/ST entrepreneur",
+     "field": "female_or_scst",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    },
+    {
+     "id": "first",
+     "label": "First-time entrepreneur",
+     "field": "is_new_project",
+     "op": "is_true",
+     "value": null,
+     "hard": true,
+     "source_ref": "s1"
+    }
+   ],
+   "benefits": [
+    {
+     "type": "credit",
+     "label": "Term loan up to ₹2 crore (when launched)"
+    }
+   ],
+   "documents": [],
+   "application": {
+    "channel": "Not yet available",
+    "url": null,
+    "steps": []
+   },
+   "sources": [
+    {
+     "id": "s1",
+     "title": "PIB: new loan scheme for women, SC/ST first-time entrepreneurs (Budget 2025-26 para 32)",
+     "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2114502",
+     "publisher": "PIB"
+    }
+   ],
+   "last_verified": "2026-10-04"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "vishwakarma_vs_loans",
+   "schemes": [
+    "pm_vishwakarma",
+    "pmegp",
+    "mudra",
+    "pm_svanidhi"
+   ],
+   "anchor": "pm_vishwakarma",
+   "type": "anchor_excludes",
+   "message": "PM Vishwakarma requires no PMEGP/Mudra/PM SVANidhi loan in the last 5 years. Taking one of those first can close the Vishwakarma route."
+  },
+  {
+   "id": "double_subsidy",
+   "schemes": [
+    "pmegp",
+    "ka_udyogini"
+   ],
+   "type": "mutually_exclusive",
+   "message": "Two capital subsidies for the same project are usually not allowed (PMEGP excludes units that availed another government subsidy). Verify before combining."
+  }
+ ],
+ "meta": {
+  "accessed": "2026-10-04",
+  "vishwakarma_trades": [
+   "carpenter",
+   "boat_maker",
+   "armourer",
+   "blacksmith",
+   "hammer_toolkit_maker",
+   "locksmith",
+   "goldsmith",
+   "potter",
+   "sculptor_stone_breaker",
+   "cobbler",
+   "mason",
+   "basket_mat_broom_coir_maker",
+   "doll_toy_maker",
+   "barber",
+   "garland_maker",
+   "washerman",
+   "tailor",
+   "fishing_net_maker"
+  ]
+ }
+}

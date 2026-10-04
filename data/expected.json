@@ -1,0 +1,53 @@
+{
+ "lakshmi": {
+  "schemes": {
+   "udyam_registration": {"status": "ELIGIBLE", "met": 2, "total": 2, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "udyam_assist": {"status": "ELIGIBLE", "met": 2, "total": 2, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "pmegp": {"status": "ELIGIBLE", "met": 5, "total": 5, "unknown": 0, "fails": [], "grant_min": 280000, "grant_max": 280000, "credit": 760000},
+   "mudra": {"status": "ELIGIBLE", "met": 3, "total": 3, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 720000},
+   "cgtmse": {"status": "NEAR_MISS", "met": 2, "total": 3, "unknown": 0, "fails": ["udyam"], "grant_min": 0, "grant_max": 0, "credit": 720000},
+   "pm_vishwakarma": {"status": "ELIGIBLE", "met": 5, "total": 5, "unknown": 0, "fails": [], "grant_min": 15000, "grant_max": 15000, "credit": 300000},
+   "pm_svanidhi": {"status": "NOT_ELIGIBLE", "met": 0, "total": 2, "unknown": 0, "fails": ["vendor", "proof"], "grant_min": 0, "grant_max": 0, "credit": 15000},
+   "stand_up_india": {"status": "NOT_ELIGIBLE", "met": 4, "total": 5, "unknown": 0, "fails": ["min"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "zed": {"status": "NEAR_MISS", "met": 2, "total": 3, "unknown": 0, "fails": ["udyam"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "me_card": {"status": "NEAR_MISS", "met": 1, "total": 2, "unknown": 0, "fails": ["udyam"], "grant_min": 0, "grant_max": 0, "credit": 500000},
+   "ka_udyogini": {"status": "LIKELY", "met": 4, "total": 5, "unknown": 1, "fails": [], "grant_min": 90000, "grant_max": 150000, "credit": 300000},
+   "first_time_women_scst": {"status": "WATCHLIST", "met": 2, "total": 2, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 0}
+  },
+  "best_paths": [{"schemes": ["pmegp"], "grant_min": 280000, "grant_max": 280000}, {"schemes": ["pm_vishwakarma", "ka_udyogini"], "grant_min": 105000, "grant_max": 165000}]
+ },
+ "ravi": {
+  "schemes": {
+   "udyam_registration": {"status": "NOT_APPLICABLE", "met": 1, "total": 2, "unknown": 0, "fails": ["not_yet"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "udyam_assist": {"status": "NOT_APPLICABLE", "met": 0, "total": 2, "unknown": 0, "fails": ["not_yet", "no_gst"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "pmegp": {"status": "NOT_ELIGIBLE", "met": 2, "total": 6, "unknown": 3, "fails": ["new"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "mudra": {"status": "ELIGIBLE", "met": 3, "total": 3, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 400000},
+   "cgtmse": {"status": "ELIGIBLE", "met": 3, "total": 3, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 400000},
+   "pm_vishwakarma": {"status": "NOT_ELIGIBLE", "met": 4, "total": 5, "unknown": 0, "fails": ["trade"], "grant_min": 15000, "grant_max": 15000, "credit": 300000},
+   "pm_svanidhi": {"status": "NOT_ELIGIBLE", "met": 0, "total": 2, "unknown": 0, "fails": ["vendor", "proof"], "grant_min": 0, "grant_max": 0, "credit": 15000},
+   "stand_up_india": {"status": "NOT_ELIGIBLE", "met": 2, "total": 5, "unknown": 0, "fails": ["who", "greenfield", "min"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "zed": {"status": "LIKELY", "met": 2, "total": 3, "unknown": 1, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "me_card": {"status": "ELIGIBLE", "met": 2, "total": 2, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 500000},
+   "ka_udyogini": {"status": "NOT_ELIGIBLE", "met": 3, "total": 5, "unknown": 0, "fails": ["woman", "income"], "grant_min": 90000, "grant_max": 90000, "credit": 300000},
+   "first_time_women_scst": {"status": "WATCHLIST", "met": 0, "total": 2, "unknown": 0, "fails": ["who", "first"], "grant_min": 0, "grant_max": 0, "credit": 0}
+  },
+  "best_paths": []
+ },
+ "shabana": {
+  "schemes": {
+   "udyam_registration": {"status": "NEAR_MISS", "met": 1, "total": 2, "unknown": 0, "fails": ["pan"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "udyam_assist": {"status": "ELIGIBLE", "met": 2, "total": 2, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "pmegp": {"status": "NOT_ELIGIBLE", "met": 2, "total": 4, "unknown": 0, "fails": ["new", "activity"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "mudra": {"status": "ELIGIBLE", "met": 3, "total": 3, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 25000},
+   "cgtmse": {"status": "NEAR_MISS", "met": 2, "total": 3, "unknown": 0, "fails": ["udyam"], "grant_min": 0, "grant_max": 0, "credit": 25000},
+   "pm_vishwakarma": {"status": "NOT_ELIGIBLE", "met": 4, "total": 5, "unknown": 0, "fails": ["trade"], "grant_min": 15000, "grant_max": 15000, "credit": 300000},
+   "pm_svanidhi": {"status": "ELIGIBLE", "met": 2, "total": 2, "unknown": 0, "fails": [], "grant_min": 0, "grant_max": 0, "credit": 15000},
+   "stand_up_india": {"status": "NOT_ELIGIBLE", "met": 3, "total": 5, "unknown": 0, "fails": ["greenfield", "min"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "zed": {"status": "NOT_ELIGIBLE", "met": 1, "total": 3, "unknown": 0, "fails": ["udyam", "activity"], "grant_min": 0, "grant_max": 0, "credit": 0},
+   "me_card": {"status": "NEAR_MISS", "met": 1, "total": 2, "unknown": 0, "fails": ["udyam"], "grant_min": 0, "grant_max": 0, "credit": 500000},
+   "ka_udyogini": {"status": "ELIGIBLE", "met": 5, "total": 5, "unknown": 0, "fails": [], "grant_min": 7500, "grant_max": 12500, "credit": 25000},
+   "first_time_women_scst": {"status": "WATCHLIST", "met": 1, "total": 2, "unknown": 0, "fails": ["first"], "grant_min": 0, "grant_max": 0, "credit": 0}
+  },
+  "best_paths": [{"schemes": ["ka_udyogini"], "grant_min": 7500, "grant_max": 12500}]
+ }
+}

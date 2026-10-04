@@ -1,0 +1,26 @@
+{
+  "intro": {
+    "ELIGIBLE": "You may be eligible for {scheme}.",
+    "LIKELY": "You may be eligible for {scheme}, but we need a little more information.",
+    "NEAR_MISS": "You are one step away from {scheme}.",
+    "NOT_ELIGIBLE": "{scheme} does not fit your business right now.",
+    "WATCHLIST": "{scheme} has been announced but is not open yet. We will watch it for you.",
+    "NOT_APPLICABLE": "{scheme} does not apply to you."
+  },
+  "met": "✓ {label}.",
+  "not_met": "✗ {label}.",
+  "need_info": "? {label}: we still need this information.",
+  "yours": "Yours: {value}.",
+  "fix": "What you can do: {fix}.",
+  "nothing_blocking": "Nothing is blocking you on the rules we checked.",
+  "grant": "Estimated subsidy: {amount}.",
+  "grant_range": "Estimated subsidy: {lo} to {hi}.",
+  "credit": "Estimated credit: up to {amount}.",
+  "agency": "Final amount is decided by the implementing agency.",
+  "check_status": "Check the current status of this scheme before applying.",
+  "source": "Source: {title}",
+  "criteria": {},
+  "fixes": {},
+  "summaries": {},
+  "conflicts": {}
+}

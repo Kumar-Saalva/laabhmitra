@@ -1,0 +1,12 @@
+---
+description: Rules for editing scheme seed data
+globs: data/**/*.json
+alwaysApply: false
+---
+# Scheme data
+- Do not edit data files unless the user explicitly asks.
+- Every scheme needs: id, kind, status (active | verify | announced), sources[] with url,
+  last_verified (YYYY-MM-DD), criteria[] with source_ref, documents[], application{}.
+- Uncertain facts: status "verify" plus status_note; disputed values go in unknown_values or a note.
+- After any data change: run the persona tests and the /admin rule tester; update
+  data/expected.json only after a human has checked the official source.

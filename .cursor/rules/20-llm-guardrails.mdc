@@ -1,0 +1,15 @@
+---
+description: LLM provider layer, prompts and guardrails
+globs: backend/app/llm/**/*.py
+alwaysApply: false
+---
+# LLM layer
+- Provider interface with MockProvider (default) and one real provider chosen by LLM_PROVIDER
+  (mock | anthropic | gemini | openai | sarvam). Keys only from env vars, never committed.
+- Tasks: extract_profile (JSON with allowed keys only, Pydantic-validated), explain_eligibility,
+  explain_why_not, draft_pack. Prompts are in AGENTS.md 2.5.
+- guard.py: reject any output containing a number that is not in the input facts; fall back to
+  the template text. Explanations must end with "Source: <source title>".
+- The LLM receives only structured facts (scheme JSON, criterion results, needed profile fields).
+- Drafts are watermarked DRAFT and use [fill in] placeholders for missing data.
+- Timeouts and errors fall back to MockProvider output; the UI never breaks.

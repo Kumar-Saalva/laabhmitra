@@ -1,0 +1,16 @@
+---
+description: Frontend UI rules for the LaabhMitra web app
+globs: frontend/src/**/*.tsx,frontend/src/**/*.ts
+alwaysApply: false
+---
+# Frontend
+- Mobile-first; big tap targets; plain words; icons next to every status (check / cross / ?).
+- Tiers: Ready, Likely (needs info), One step away, Not now, Watchlist. No "% match".
+- Every scheme card: tier badge, "criteria met X of Y (Z unknown)", benefit buckets,
+  status + last-verified badge, official link, Why? / Why not? buttons.
+- Headline: "Up to X in subsidies (estimated) + Y collateral-free credit options".
+- Indian number format via a single formatINR() helper.
+- All strings through i18n (en, kn, hi) from M7 on.
+- Footer disclaimer: "Information only. Not affiliated with the Government of India.
+  Final decisions are made by the implementing agency."
+- No government logos or emblems. Loading, empty and error states on every page.
