@@ -39,7 +39,7 @@ export default function SchemeDetail() {
   if (error) return <ErrorState message={error} onRetry={retry} />
   if (!evaluation) return <Loading />
   const result = evaluation.results.find((r) => r.scheme_id === id)
-  if (!result) return <EmptyState title={t('detail.not_found')}><Link to="/results" className="underline">{t('nav.results')}</Link></EmptyState>
+  if (!result) return <EmptyState title={t('detail.not_found')}><Link to="/results" className="link">{t('nav.results')}</Link></EmptyState>
 
   const { scheme } = result
   const criteria = result.criteria.filter((c) => c.result !== 'N/A')
@@ -55,26 +55,26 @@ export default function SchemeDetail() {
   return (
     <>
       <PageTitle title={scheme.short_name} back="/results" />
-      <p className="-mt-3 text-soft">{scheme.name}{scheme.ministry ? `, ${scheme.ministry}` : ''}</p>
+      <p className="-mt-3 text-muted-foreground">{scheme.name}{scheme.ministry ? `, ${scheme.ministry}` : ''}</p>
       <div className="mt-3 flex flex-wrap items-center gap-3">
         <TierBadge tier={result.tier} />
-        <span className="text-soft">{t('card.criteria', { met: result.met, total: result.total, unknown: result.unknown })}</span>
+        <span className="text-muted-foreground">{t('card.criteria', { met: result.met, total: result.total, unknown: result.unknown })}</span>
       </div>
       <p className="mt-4 max-w-[68ch] text-lg">{scheme.summary_plain}</p>
-      {!result.visible && <p className="mt-3 border-l-4 border-rule bg-slate-wash p-3 text-sm">{t('detail.hidden')}</p>}
-      {scheme.warning && <p className="mt-3 border-l-4 border-leaf bg-leaf-wash p-3 text-sm">{t('fraud.udyam_free')}</p>}
+      {!result.visible && <p className="mt-3 notice p-3 text-sm">{t('detail.hidden')}</p>}
+      {scheme.warning && <p className="mt-3 notice notice-success p-3 text-sm">{t('fraud.udyam_free')}</p>}
       {scheme.conflict_note && (
-        <p className="mt-3 flex items-start gap-2 border-l-4 border-turmeric bg-turmeric-wash p-3 text-sm">
-          <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-turmeric" />
-          <span>{scheme.conflict_note} <Link to="/path" className="font-semibold underline">{t('results.see_path')}</Link></span>
+        <p className="mt-3 flex items-start gap-2 notice notice-warning p-3 text-sm">
+          <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
+          <span>{scheme.conflict_note} <Link to="/path" className="link font-semibold">{t('results.see_path')}</Link></span>
         </p>
       )}
 
-      <section className="ledger mt-6 px-5 py-4">
+      <section className="card mt-6 px-5 py-5 sm:px-8 sm:py-7">
         <h2 className="text-xl">{t('detail.money')}</h2>
         <Buckets result={result} />
         {result.estimate.how && ['ready', 'likely', 'one_step'].includes(result.tier) && (
-          <p className="mt-2 text-sm text-soft">{t('detail.how')}: {result.estimate.how} {t('map.label')}</p>
+          <p className="mt-2 text-sm text-muted-foreground">{t('detail.how')}: {result.estimate.how} {t('map.label')}</p>
         )}
       </section>
 
@@ -82,24 +82,24 @@ export default function SchemeDetail() {
         <AffordabilityPanel key={scheme.id} initial={result.affordability} />
       )}
 
-      <section className="ledger mt-5 px-5 py-4">
+      <section className="card mt-6 px-5 py-5 sm:px-8 sm:py-7">
         <h2 className="text-xl">{t('detail.rules')}</h2>
-        <ul className="mt-2 divide-y divide-rule/70">
+        <ul className="mt-2 divide-y divide-border/70">
           {criteria.map((c) => (
             <li key={c.id} className="flex gap-3 py-2.5">
               <CriterionMark state={c.result} />
               <div>
                 <p className="font-medium">{c.label}</p>
-                {c.result === 'UNKNOWN' && <p className="text-sm text-turmeric">{t('detail.need_info')}</p>}
-                {c.note && <p className="text-sm text-soft">{c.note}</p>}
-                {c.result === 'FALSE' && c.fix && <p className="mt-0.5 text-sm text-step"><span className="font-semibold">{t('detail.fix')}:</span> {c.fix.label}</p>}
+                {c.result === 'UNKNOWN' && <p className="text-sm text-warning">{t('detail.need_info')}</p>}
+                {c.note && <p className="text-sm text-muted-foreground">{c.note}</p>}
+                {c.result === 'FALSE' && c.fix && <p className="mt-0.5 text-sm text-info"><span className="font-semibold">{t('detail.fix')}:</span> {c.fix.label}</p>}
               </div>
             </li>
           ))}
         </ul>
-        {result.unknown > 0 && <Link to="/" className="tap mt-1 inline-flex items-center font-semibold underline underline-offset-2">{t('detail.answer_more')}</Link>}
+        {result.unknown > 0 && <Link to="/" className="tap link mt-1 inline-flex items-center font-semibold">{t('detail.answer_more')}</Link>}
 
-        <div className="mt-3 flex flex-wrap gap-2 border-t border-rule pt-4">
+        <div className="mt-3 flex flex-wrap gap-2 border-t border-border pt-4">
           <Button variant={kind === 'why' ? 'primary' : 'quiet'} aria-pressed={kind === 'why'} onClick={() => setKind('why')}>{t('card.why')}</Button>
           <Button variant={kind === 'why_not' ? 'primary' : 'quiet'} aria-pressed={kind === 'why_not'} onClick={() => setKind('why_not')}>{t('card.why_not')}</Button>
         </div>
@@ -107,9 +107,9 @@ export default function SchemeDetail() {
           {busy && <Loading label={t('detail.explaining')} />}
           {explainError && <ErrorState message={explainError} />}
           {!busy && explanation && kind && (
-            <div className="mt-3 bg-paper p-4">
+            <div className="mt-3 bg-muted p-4">
               <p className="whitespace-pre-line">{explanation.text}</p>
-              <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-soft">
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                 {'speechSynthesis' in window && <Button onClick={speak}><Icon name="sound" className="h-4 w-4" />{t('detail.listen')}</Button>}
                 <span>{t('detail.rules_decide')}</span>
               </div>
@@ -118,12 +118,12 @@ export default function SchemeDetail() {
         </div>
       </section>
 
-      <section className="ledger mt-5 px-5 py-4">
+      <section className="card mt-6 px-5 py-5 sm:px-8 sm:py-7">
         <h2 className="text-xl">{t('detail.source')}</h2>
         <div className="mt-2"><SourceBadge scheme={scheme} stale={result.stale} detailed /></div>
       </section>
 
-      <section className="ledger mt-5 px-5 py-4">
+      <section className="card mt-6 px-5 py-5 sm:px-8 sm:py-7">
         <h2 className="text-xl">{t('detail.apply')}</h2>
         {scheme.application.channel && <p className="mt-1">{scheme.application.channel}</p>}
         {scheme.application.steps.length > 0 && (
@@ -137,10 +137,10 @@ export default function SchemeDetail() {
         )}
         <div className="mt-4 flex flex-wrap gap-2">
           {scheme.status !== 'announced' && (
-            <Link to={`/pack/${scheme.id}`} className="tap inline-flex items-center rounded-md bg-ink px-5 font-semibold text-sheet hover:bg-ink/90">{t('detail.prepare')}</Link>
+            <Link to={`/pack/${scheme.id}`} className="btn btn-primary">{t('detail.prepare')}</Link>
           )}
           {scheme.application.url && (
-            <a href={scheme.application.url} target="_blank" rel="noreferrer" className="tap inline-flex items-center gap-1.5 rounded-md border border-ink/30 px-4 hover:border-ink">
+            <a href={scheme.application.url} target="_blank" rel="noreferrer" className="btn btn-outline">
               <Icon name="link" className="h-4 w-4" />{t('card.official')}
             </a>
           )}

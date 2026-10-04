@@ -19,17 +19,17 @@ export default function PathPage() {
         ? <EmptyState title={t('path.none')}><p>{t('path.none_help')}</p></EmptyState>
         : <PathView evaluation={evaluation} />}
 
-      <section className="ledger mt-5 p-5">
+      <section className="card mt-6 p-5 sm:p-8">
         <h2 className="text-xl">{t('map.credit')}</h2>
-        <p className="text-sm text-soft">{t('path.credit_note')}</p>
-        {map.buckets.credit.length === 0 ? <p className="mt-2 text-soft">{t('map.none')}</p> : (
-          <ul className="mt-2 divide-y divide-rule/70">
+        <p className="text-sm text-muted-foreground">{t('path.credit_note')}</p>
+        {map.buckets.credit.length === 0 ? <p className="mt-2 text-muted-foreground">{t('map.none')}</p> : (
+          <ul className="mt-2 divide-y divide-border/70">
             {map.buckets.credit.map((c) => (
               <li key={c.scheme_id} className="flex flex-wrap justify-between gap-x-4 py-2">
-                <Link to={`/scheme/${c.scheme_id}`} className="font-semibold underline decoration-rule underline-offset-2">{c.short_name}</Link>
+                <Link to={`/scheme/${c.scheme_id}`} className="font-semibold link">{c.short_name}</Link>
                 <span>
                   <span className="figure">{t('money.up_to', { amount: formatINR(c.credit ?? 0) })}{c.tier_name ? ` (${c.tier_name})` : ''}</span>
-                  <span className="ml-2 text-sm text-soft">{t(`tier.${c.tier}`)}{c.scheme_status === 'verify' ? `, ${t('badge.verify').toLowerCase()}` : ''}</span>
+                  <span className="ml-2 text-sm text-muted-foreground">{t(`tier.${c.tier}`)}{c.scheme_status === 'verify' ? `, ${t('badge.verify').toLowerCase()}` : ''}</span>
                 </span>
               </li>
             ))}
@@ -38,7 +38,7 @@ export default function PathPage() {
       </section>
 
       <div className="mt-5"><UnlockSteps steps={map.fix_plan} /></div>
-      <p className="mt-4 text-sm text-soft">{t('map.label')}</p>
+      <p className="mt-4 text-sm text-muted-foreground">{t('map.label')}</p>
     </>
   )
 }

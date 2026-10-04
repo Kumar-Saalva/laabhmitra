@@ -1,54 +1,60 @@
 ---
 name: LaabhMitra
-description: Government benefits copilot for small businesses, drawn as a bank passbook.
+description: Government benefits copilot for small businesses, in an editorial serif style adapted for phones and three scripts.
 colors:
-  ink: "#14304a"
-  leaf: "#1b7447"
-  leaf-wash: "#e2f1e8"
-  turmeric: "#8f5f00"
-  turmeric-wash: "#faecc4"
-  step: "#1f5fa8"
-  step-wash: "#e1ecf9"
-  sindoor: "#a8321f"
-  sindoor-wash: "#f8e4df"
-  paper: "#e9f0ec"
-  sheet: "#fbfcfa"
-  soft: "#4d6377"
-  rule: "#c7d5cd"
-  slate-wash: "#e6ebef"
+  accent: "#b8860b"
+  accent-strong: "#8a6508"
+  accent-deep: "#6f5106"
+  accent-secondary: "#d4a84b"
+  accent-wash: "#f8f2e3"
+  success: "#2e6b3e"
+  success-wash: "#e6f0e4"
+  warning: "#9a4f0a"
+  warning-wash: "#fbe9d5"
+  info: "#2a5a8c"
+  info-wash: "#e4ecf5"
+  danger: "#9c2f22"
+  danger-wash: "#f7e3de"
+  background: "#fafaf8"
+  foreground: "#1a1a1a"
+  muted: "#f5f3f0"
+  muted-foreground: "#6b6b6b"
+  card: "#ffffff"
+  border: "#e8e4df"
+  border-hover: "#cfc8bf"
 typography:
   display:
-    fontFamily: "Anek Latin Variable, Anek Kannada Variable, Anek Devanagari Variable, Nirmala UI, system-ui, sans-serif"
-    fontSize: "clamp(2.2rem, 6vw, 3rem)"
-    fontWeight: 650
-    lineHeight: 1.15
-    letterSpacing: "-0.01em"
+    fontFamily: "Playfair Display Variable, Noto Serif Kannada Variable, Noto Serif Devanagari Variable, Georgia, serif"
+    fontSize: "clamp(2.5rem, 7vw, 3.75rem)"
+    fontWeight: 500
+    lineHeight: 1.1
+    letterSpacing: "-0.02em"
   headline:
-    fontFamily: "Anek Latin Variable, Anek Kannada Variable, Anek Devanagari Variable, Nirmala UI, system-ui, sans-serif"
-    fontSize: "clamp(1.75rem, 4vw, 2.1rem)"
-    fontWeight: 650
-    lineHeight: 1.15
+    fontFamily: "Playfair Display Variable, Noto Serif Kannada Variable, Noto Serif Devanagari Variable, Georgia, serif"
+    fontSize: "clamp(1.9rem, 4vw, 2.5rem)"
+    fontWeight: 500
+    lineHeight: 1.2
     letterSpacing: "-0.01em"
   title:
-    fontFamily: "Anek Latin Variable, Anek Kannada Variable, Anek Devanagari Variable, Nirmala UI, system-ui, sans-serif"
+    fontFamily: "Playfair Display Variable, Noto Serif Kannada Variable, Noto Serif Devanagari Variable, Georgia, serif"
     fontSize: "1.25rem"
-    fontWeight: 650
-    lineHeight: 1.15
+    fontWeight: 600
+    lineHeight: 1.2
   body:
-    fontFamily: "Anek Latin Variable, Anek Kannada Variable, Anek Devanagari Variable, Nirmala UI, system-ui, sans-serif"
+    fontFamily: "Source Sans 3 Variable, Noto Sans Kannada Variable, Noto Sans Devanagari Variable, Nirmala UI, system-ui, sans-serif"
     fontSize: "1.0625rem"
     fontWeight: 400
-    lineHeight: 1.5
+    lineHeight: 1.7
+    letterSpacing: "0.01em"
   label:
-    fontFamily: "Anek Latin Variable, Anek Kannada Variable, Anek Devanagari Variable, Nirmala UI, system-ui, sans-serif"
-    fontSize: "0.875rem"
-    fontWeight: 400
-    lineHeight: 1.43
+    fontFamily: "IBM Plex Mono, ui-monospace, monospace"
+    fontSize: "0.75rem"
+    fontWeight: 500
+    letterSpacing: "0.15em"
   figure:
-    fontFamily: "Anek Latin Variable, Anek Kannada Variable, Anek Devanagari Variable, Nirmala UI, system-ui, sans-serif"
-    fontWeight: 650
-    fontFeature: "tnum"
-    fontVariation: "'wdth' 88"
+    fontFamily: "Source Sans 3 Variable, Noto Sans Kannada Variable, Noto Sans Devanagari Variable, Nirmala UI, system-ui, sans-serif"
+    fontWeight: 600
+    fontFeature: "tnum, lnum"
 rounded:
   sm: "4px"
   md: "6px"
@@ -56,191 +62,212 @@ rounded:
   full: "9999px"
 spacing:
   gutter: "16px"
-  panel: "20px"
+  card: "20px"
+  card-wide: "32px"
   tap: "44px"
 components:
   button-primary:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.sheet}"
+    backgroundColor: "{colors.accent-strong}"
+    textColor: "#ffffff"
     rounded: "{rounded.md}"
     padding: "0 20px"
     height: "{spacing.tap}"
-  button-quiet:
-    backgroundColor: "{colors.sheet}"
-    textColor: "{colors.ink}"
+  button-primary-hover:
+    backgroundColor: "{colors.accent-deep}"
+  button-outline:
+    textColor: "{colors.foreground}"
     rounded: "{rounded.md}"
     padding: "0 16px"
     height: "{spacing.tap}"
+  button-outline-hover:
+    backgroundColor: "{colors.muted}"
+    textColor: "{colors.accent-strong}"
   chip:
-    backgroundColor: "{colors.sheet}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.card}"
+    textColor: "{colors.foreground}"
     rounded: "{rounded.full}"
     padding: "0 16px"
     height: "{spacing.tap}"
-  ledger-panel:
-    backgroundColor: "{colors.sheet}"
-    textColor: "{colors.ink}"
-    padding: "{spacing.panel}"
-  tier-badge-ready:
-    backgroundColor: "{colors.leaf-wash}"
-    textColor: "{colors.leaf}"
-    rounded: "{rounded.sm}"
-    padding: "2px 8px"
+  card:
+    backgroundColor: "{colors.card}"
+    textColor: "{colors.foreground}"
+    rounded: "{rounded.lg}"
+    padding: "{spacing.card}"
   input:
-    backgroundColor: "#ffffff"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.card}"
+    textColor: "{colors.foreground}"
     rounded: "{rounded.md}"
     padding: "0 12px"
     height: "{spacing.tap}"
-  header:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.sheet}"
+  tier-badge-ready:
+    backgroundColor: "{colors.success-wash}"
+    textColor: "{colors.success}"
+    rounded: "{rounded.md}"
+    padding: "2px 8px"
 ---
 
 # Design System: LaabhMitra
 
 ## Overview
 
-**Creative North Star: "The Passbook"**
+**Creative North Star: "Serif"** (the editorial system supplied by the team, adapted)
 
-The interface borrows from the bank passbook, an object every small merchant in India already trusts and can read: pale ledger paper, indigo ink, a red margin line, and figures set in columns. Each scheme is an entry on a ruled page, not a floating card. Money you keep and money you repay sit in separate columns, the way credits and debits do.
+Typographic elegance through restraint: a warm ivory page, rich black text, white cards held by thin warm rules, serif headlines and a single burnished-gold accent. It should feel like a well-set printed page, calm and trustworthy, with nothing shouting.
 
-The system is calm and dense enough to scan on a small phone. Colour is spent almost entirely on meaning: each readiness tier owns one colour and one icon, and nothing else uses them.
+The supplied system was written for an English marketing site. This app is a task tool used on budget phones in Kannada, Hindi and English, so four things are adapted on purpose:
 
-This record describes the implementation as it exists in `frontend/src/index.css` and the components. The North Star name and the named rules below were drafted from the code and have not yet been confirmed by the team.
+- **Scripts.** Playfair Display, Source Sans 3 and IBM Plex Mono have no Kannada or Devanagari letters. Each stack adds a matching Noto face, so headings stay serif and body stays sans in all three languages.
+- **Gold as text.** Burnished gold (`accent`) is 3.2:1 on white, too light for text. It is kept for rules, focus rings and the card top line. Buttons and links use a darker gold (`accent-strong`, 5.3:1).
+- **Status colours stay.** Readiness tiers and check results keep their own colours, retuned warmer to sit on ivory.
+- **Spacing.** Generous for a phone, not the 128px+ section padding of a landing page.
+
+Left out: the paper-texture overlay and ambient glow (a full-screen layer costs scroll performance on budget phones), and the pricing, testimonial and stats patterns (the app has no such content and must not invent it).
 
 **Key Characteristics:**
 
-- Ruled ledger panels with a red double margin line, in place of shadowed cards.
-- One typeface family across English, Kannada and Hindi.
-- Rupee amounts in tabular, slightly condensed figures.
-- One colour and one icon per readiness tier.
-- Flat surfaces; depth comes from paper against page, not shadow.
+- Serif headlines, sans body, across three scripts.
+- White cards on ivory, 1px warm rules, almost no shadow.
+- One brand accent (gold); status colours only for status.
+- One large serif moment per screen at most (the welcome headline, the results figures).
+- Motion limited to 150 to 200ms colour and shadow transitions.
 
 ## Colors
 
-A cool, paper-and-ink palette with four signal colours that each mean one thing.
+Monochrome with warmth, one gold accent, and four status colours that each mean one thing.
 
 ### Primary
 
-- **Passbook Indigo** (`ink`): all body text, the header band, and primary buttons. The default colour of anything the merchant should read or press.
+- **Burnished Gold** (`accent`): rules under headlines, the top line of featured cards, the active navigation underline, focus rings. Never body text.
+- **Deep Gold** (`accent-strong`, hover `accent-deep`): primary buttons, links, small-caps labels.
 
 ### Secondary
 
-- **Leaf Green** (`leaf`, with `leaf-wash`): Ready tier, met criteria, subsidy amounts, "Comfortable" repayment, verified badges.
-- **Turmeric** (`turmeric`, with `turmeric-wash`): Likely tier, unknown criteria, "Check current status", conflict and trade-off warnings.
-- **Step Blue** (`step`, with `step-wash`): One step away tier, fix actions and unlock hints, focus ring.
-- **Sindoor Red** (`sindoor`, with `sindoor-wash`): Not now tier, unmet criteria, errors, the DRAFT mark, and the ledger margin line.
+- **Success** (`success` on `success-wash`): Ready tier, met criteria, subsidy amounts, verified badges, "Comfortable" repayment.
+- **Warning** (`warning` on `warning-wash`): Likely tier, unknown criteria, "Check current status", trade-off notices, "Tight" repayment.
+- **Info** (`info` on `info-wash`): One step away tier, fix and unlock hints.
+- **Danger** (`danger` on `danger-wash`): Not now tier, unmet criteria, errors, the DRAFT mark.
 
 ### Neutral
 
-- **Ledger Paper** (`paper`): the page background behind every panel.
-- **Sheet** (`sheet`): the surface of ledger panels, quiet buttons and the footer.
-- **Soft Ink** (`soft`): secondary text, notes, the Watchlist tier.
-- **Rule Line** (`rule`): borders and the dividers between ledger rows.
-- **Slate Wash** (`slate-wash`): background for neutral and unknown badges.
+- **Ivory** (`background`): the page.
+- **Rich Black** (`foreground`): text, selected toggles.
+- **Muted** (`muted`): secondary surfaces, chat bubbles, neutral badges.
+- **Warm Gray** (`muted-foreground`): secondary text.
+- **White** (`card`): card and input surfaces.
+- **Warm Rule** (`border`, hover `border-hover`): dividers, card borders, input borders.
 
 ### Named Rules
 
-**The One Meaning Rule.** A signal colour is used only for its tier or state. Green is never decoration; red is never emphasis.
+**The Gold Is Not Text Rule.** `accent` is for lines and rings. Anything a person reads or presses in gold uses `accent-strong`.
 
-**The Wash Pair Rule.** Signal text sits on its own wash (`leaf` on `leaf-wash`), never on another signal's wash.
+**The One Meaning Rule.** A status colour is used only for its status, always with an icon and words.
 
 ## Typography
 
-**Display Font:** Anek Latin Variable, with Anek Kannada Variable and Anek Devanagari Variable (fallback Nirmala UI, system-ui)
-**Body Font:** the same family
+**Display Font:** Playfair Display, with Noto Serif Kannada and Noto Serif Devanagari (fallback Georgia)
+**Body Font:** Source Sans 3, with Noto Sans Kannada and Noto Sans Devanagari (fallback Nirmala UI, system-ui)
+**Label/Mono Font:** IBM Plex Mono (Latin only)
 
-**Character:** One multi-script family, so a screen in Kannada has the same weight and rhythm as the same screen in English. Fonts are bundled with the app, not loaded from a CDN, so the demo works offline.
+**Character:** A high-contrast serif for headings against a quiet, highly readable sans. All fonts are bundled with the app (`@fontsource`), not loaded from a CDN, so the demo works offline.
 
 ### Hierarchy
 
-- **Display** (650, 2.2rem to 3rem, 1.15): the welcome headline only.
-- **Headline** (650, 1.75rem to 2.1rem, 1.15): page titles.
-- **Title** (650, 1.25rem, 1.15): section and scheme names inside panels.
-- **Body** (400, 1.0625rem, 1.5): everything read as a sentence. Lines are capped near 62 to 72 characters.
-- **Label** (400, 0.875rem): notes, sources, criteria counts, in Soft Ink.
-- **Figure** (650, tabular numerals, width axis 88): every rupee amount, count and ratio.
+- **Display** (500, 2.5rem to 3.75rem, 1.1): the welcome headline only, centred.
+- **Headline** (500, 1.9rem to 2.5rem, 1.2): page titles, with a short gold rule beneath.
+- **Title** (600, 1.25rem, 1.2): section and scheme names inside cards.
+- **Body** (400, 1.0625rem, 1.7): sentences. Lines capped near 62 to 72 characters.
+- **Label** (500, 0.75rem, tracking 0.15em, uppercase): small-caps labels in Deep Gold.
+- **Figure** (600, tabular lining numerals): rupee amounts in rows and tables. The few large numbers use the serif at display size (`display-figure`).
 
 ### Named Rules
 
-**The Script Room Rule.** Kannada and Hindi get more line height (1.65 body, 1.35 headings) and no negative letter spacing, because their marks sit above and below the line.
+**The No Capitals Rule.** Kannada and Devanagari have no capitals and read poorly when tracked. In those languages a label is plain sans, 0.875rem, semibold, with no tracking or uppercase.
 
-**The Figure Rule.** Any number a merchant might compare is set in the figure style so digits line up.
+**The Script Room Rule.** Kannada and Hindi get more line height (1.8 body, 1.45 headings) and no letter spacing.
 
 ## Layout
 
-Single column, mobile-first, in a centred container up to 64rem wide with a 16px side gutter. Panels stack vertically with 20px between them. Two columns appear only at large widths, for the onboarding chat beside the "Your business" card and for Path A beside Path B.
+Single column in a centred container up to 64rem wide with a 16px gutter. Cards stack with about 24px between them. Two columns appear only at large widths (onboarding chat beside "Your business", Path A beside Path B).
 
-Inside panels, label and value pairs sit in a two-column grid from the small breakpoint up and stack below it. Tabs and the main navigation scroll sideways on narrow screens instead of wrapping. Every interactive control is at least 44px tall.
+Card padding is 20px on phones and 32px from the small breakpoint. Main content has 32px vertical padding on phones and 56px on larger screens. Tabs and navigation scroll sideways on narrow screens. Every control is at least 44px tall.
 
 ## Elevation & Depth
 
-Flat. There are no shadows anywhere in the system. Depth is tonal: Sheet panels sit on Ledger Paper, separated by a 1px Rule Line border.
+Nearly flat. Cards carry a very soft shadow (`0 1px 2px rgba(26,26,26,0.04)`); primary buttons deepen it slightly on hover. Structure comes from thin rules, not depth.
+
+### Shadow Vocabulary
+
+- **Subtle lift** (`box-shadow: 0 1px 2px rgba(26,26,26,0.04)`): cards, primary buttons at rest.
+- **Hover** (`box-shadow: 0 4px 12px rgba(26,26,26,0.06)`): primary button hover.
 
 ### Named Rules
 
-**The No Shadow Rule.** A panel is distinguished by its border and its margin line, never by a shadow or a gradient.
+**The No Lift Rule.** Nothing moves on hover. States change colour, border or shadow only.
 
 ## Shapes
 
-Mostly square. Ledger panels have no corner radius and carry a 3px double Sindoor line on the left edge, the passbook margin. Buttons and inputs are gently rounded (6px). Tier badges are nearly square (4px) with a 1.5px outline in their own colour, like a rubber stamp. Only answer chips and round icon marks are fully rounded.
+Gently rounded. Cards 8px, buttons, inputs, badges and notices 6px. Borders are always 1px. Featured cards add a 2px gold line along the top edge. Only answer chips and round icon marks are fully rounded.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** gently rounded (6px), 44px tall.
-- **Primary:** Passbook Indigo fill with Sheet text, semibold, 20px side padding. One per panel at most.
-- **Quiet:** Sheet fill, 1px Indigo border at 30% opacity that becomes solid on hover.
-- **Focus:** 3px Step Blue outline, 2px offset.
+Defined once in `index.css` as `.btn` classes, shared by `<button>`, `<a>` and `<Link>`.
 
-### Chips
-
-- **Style:** pill shape, Sheet fill, 1px Indigo border, 44px tall. Used for tap answers in the chat.
-- **State:** "Skip" and "Prefer not to say" use a dashed border.
+- **Shape:** 6px radius, 44px tall.
+- **Primary** (`.btn-primary`): Deep Gold fill, white semibold text, soft shadow. Hover darkens and deepens the shadow.
+- **Outline** (`.btn-outline`): transparent with a 1px black border. Hover fills Muted and turns border and text Deep Gold.
+- **Chip** (`.btn-chip`): pill for tap answers. Hover takes a gold wash.
+- **Focus:** 2px gold ring, 2px offset, on every interactive element.
 
 ### Cards / Containers
 
-- **Corner Style:** square.
-- **Background:** Sheet on Ledger Paper.
-- **Shadow Strategy:** none (see Elevation & Depth).
-- **Border:** 1px Rule Line, with the 3px double Sindoor margin line on the left.
-- **Internal Padding:** 20px. Rows inside are divided by Rule Line.
+- **Card** (`.card`): white, 1px Warm Rule, 8px radius, subtle shadow.
+- **Featured** (`.card-accent`): adds the 2px gold top line. Used for the results headline, the consent card and Path A.
+- Rows inside a card are divided by 1px rules.
+
+### Notices
+
+One pattern (`.notice` with `-success`, `-warning`, `-info`, `-danger`): the tone's wash with a 1px border in the same tone at 30%, 6px radius. No thick side stripe.
 
 ### Inputs / Fields
 
-- **Style:** white fill, 1px Indigo border at 30% opacity, 6px radius, 44px tall.
-- **Focus:** the shared 3px Step Blue outline.
-- **Sliders:** native range inputs with the Indigo accent colour.
+- **Style:** white, 1px `border-hover`, 6px radius, 44px tall. Border turns Deep Gold on hover and focus.
+- **Sliders and checkboxes:** native controls with the Deep Gold accent colour.
 
 ### Navigation
 
-- **Style:** an Indigo header band with the product name and a language select, and a row of text tabs beneath. The active tab is semibold with a 3px Sheet underline; inactive tabs are Sheet at 75% opacity. The row scrolls sideways on phones.
+Ivory header with the serif wordmark and a language select, a thin rule beneath. Text tabs in medium weight; the active tab has a 2px gold underline. The row scrolls sideways on phones.
+
+### Section Label
+
+A small-caps label between two fine rules (`SectionLabel`). Used sparingly, to open a major section.
 
 ### Tier Badge (signature)
 
-An icon plus words in the tier's colour on its wash, with a 1.5px outline in the same colour. Ready uses a check, Likely a question mark, One step away a stair, Not now a cross, Watchlist a clock. Never a percentage.
+Icon plus words in the status colour on its wash with a fine border. Never a percentage.
 
 ### Headline Entry (signature)
 
-At the top of Results: two ledger columns, "Subsidies (not repaid)" and "Collateral-free credit (to be repaid)", with a footer line stating they are never added together.
+At the top of Results: a featured card with two columns, subsidies and credit, each with a small-caps label and a large serif figure, and a footer line stating they are never added together.
 
 ## Do's and Don'ts
 
 ### Do:
 
+- **Do** use `accent-strong` for any gold a person reads or presses.
 - **Do** pair every status colour with an icon and words.
-- **Do** set every rupee amount in the figure style and Indian grouping (₹2,80,000).
-- **Do** keep subsidies and credit in separate columns or panels.
+- **Do** keep subsidies and credit in separate columns or cards.
+- **Do** use the shared `.btn`, `.card`, `.notice`, `.link` and `.label` classes instead of one-off styles.
 - **Do** keep every tap target at least 44px tall.
 - **Do** route every visible string through the three language files.
-- **Do** respect reduced motion; the only animation is the loading spinner.
 
 ### Don't:
 
-- **Don't** add shadows or gradients to panels.
-- **Don't** use a signal colour for decoration or emphasis.
-- **Don't** show a "% match" or any figure that reads as approval odds.
-- **Don't** use government logos or emblems.
+- **Don't** set body text or small labels in `accent` (#b8860b); it fails contrast.
+- **Don't** apply uppercase or letter spacing to Kannada or Hindi text.
+- **Don't** use a status colour for decoration.
+- **Don't** add a thick coloured border on one side of a box.
+- **Don't** move elements on hover.
 - **Don't** load fonts or scripts from a CDN; the demo must work offline.
+- **Don't** show a "% match", government logos, or invented testimonials and statistics.

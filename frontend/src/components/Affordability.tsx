@@ -8,13 +8,13 @@ import type { Affordability, BandKey } from '../lib/types'
 import { Icon } from './ui'
 
 const BAND_STYLE: Record<BandKey, { cls: string; icon: string }> = {
-  comfortable: { cls: 'text-leaf bg-leaf-wash', icon: 'check' },
-  tight: { cls: 'text-turmeric bg-turmeric-wash', icon: 'alert' },
-  thin: { cls: 'text-turmeric bg-turmeric-wash', icon: 'alert' },
-  strain: { cls: 'text-sindoor bg-sindoor-wash', icon: 'alert' },
-  cannot_cover: { cls: 'text-sindoor bg-sindoor-wash', icon: 'alert' },
-  unknown: { cls: 'text-soft bg-slate-wash', icon: 'question' },
-  no_fixed_emi: { cls: 'text-soft bg-slate-wash', icon: 'question' },
+  comfortable: { cls: 'text-success bg-success-wash', icon: 'check' },
+  tight: { cls: 'text-warning bg-warning-wash', icon: 'alert' },
+  thin: { cls: 'text-warning bg-warning-wash', icon: 'alert' },
+  strain: { cls: 'text-danger bg-danger-wash', icon: 'alert' },
+  cannot_cover: { cls: 'text-danger bg-danger-wash', icon: 'alert' },
+  unknown: { cls: 'text-muted-foreground bg-muted', icon: 'question' },
+  no_fixed_emi: { cls: 'text-muted-foreground bg-muted', icon: 'question' },
 }
 
 const percent = (rate: number) => String(Math.round(rate * 1000) / 10)
@@ -37,17 +37,17 @@ export function AffordabilityLine({ a }: { a: Affordability }) {
     <div className="text-sm">
       <AffordabilityBadge a={a} />
       {a.band_key === 'no_fixed_emi' ? (
-        <p className="mt-1 text-soft">{t('afford.no_fixed')}</p>
+        <p className="mt-1 text-muted-foreground">{t('afford.no_fixed')}</p>
       ) : (
         <p className="mt-1">
           {t('afford.line', { emi: formatINR(a.emi ?? 0), rate: percent(a.annual_rate), months: a.tenure_months })}
         </p>
       )}
       {a.band_key === 'unknown' && a.basis === 'current_cash' && (
-        <p className="text-soft">{t('afford.missing_cash')} <Link to="/" className="underline underline-offset-2">{t('nav.profile')}</Link></p>
+        <p className="text-muted-foreground">{t('afford.missing_cash')} <Link to="/" className="link">{t('nav.profile')}</Link></p>
       )}
       {a.band_key === 'unknown' && a.basis === 'project_report' && (
-        <p className="text-soft">{t('afford.needs_report')} <Link to="/project" className="underline underline-offset-2">{t('nav.project')}</Link></p>
+        <p className="text-muted-foreground">{t('afford.needs_report')} <Link to="/project" className="link">{t('nav.project')}</Link></p>
       )}
     </div>
   )
@@ -77,31 +77,31 @@ export function AffordabilityPanel({ initial }: { initial: Affordability }) {
 
   const fixed = a.band_key !== 'no_fixed_emi'
   return (
-    <section className="ledger mt-5 px-5 py-4">
+    <section className="card mt-6 px-5 py-5 sm:px-8 sm:py-7">
       <h2 className="text-xl">{t('afford.title')}</h2>
-      <p className="text-sm text-soft">{t('afford.lead')}</p>
+      <p className="text-sm text-muted-foreground">{t('afford.lead')}</p>
       <div className="mt-3"><AffordabilityLine a={a} /></div>
 
       {fixed && (
         <>
           <dl className="mt-3 grid gap-x-4 gap-y-1 text-sm sm:grid-cols-[14rem_1fr]">
-            <dt className="text-soft">{t('afford.principal')}</dt>
+            <dt className="text-muted-foreground">{t('afford.principal')}</dt>
             <dd className="figure">{formatINR(a.principal)}</dd>
             {a.basis === 'current_cash' && a.monthly_surplus !== null && (
               <>
-                <dt className="text-soft">{t('afford.surplus')}</dt>
+                <dt className="text-muted-foreground">{t('afford.surplus')}</dt>
                 <dd className="figure">{formatINR(a.monthly_surplus)}</dd>
               </>
             )}
             {a.ratio !== null && (
               <>
-                <dt className="text-soft">{t('afford.ratio')}</dt>
+                <dt className="text-muted-foreground">{t('afford.ratio')}</dt>
                 <dd className="figure">{Math.round(a.ratio * 100)}%</dd>
               </>
             )}
             {a.dscr !== null && (
               <>
-                <dt className="text-soft">{t('afford.dscr')}</dt>
+                <dt className="text-muted-foreground">{t('afford.dscr')}</dt>
                 <dd className="figure">{a.dscr}</dd>
               </>
             )}
@@ -110,19 +110,19 @@ export function AffordabilityPanel({ initial }: { initial: Affordability }) {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <label className="grid gap-1 text-sm">
               <span>{t('afford.rate')}: <span className="figure">{rate}%</span></span>
-              <input type="range" min={4} max={24} step={0.5} value={rate} className="tap w-full accent-ink"
+              <input type="range" min={4} max={24} step={0.5} value={rate} className="tap w-full accent-accent-strong"
                 onChange={(e) => { touched.current = true; setRate(Number(e.target.value)) }} />
             </label>
             <label className="grid gap-1 text-sm">
               <span>{t('afford.tenure')}: <span className="figure">{t('afford.months', { months })}</span></span>
-              <input type="range" min={6} max={84} step={6} value={months} className="tap w-full accent-ink"
+              <input type="range" min={6} max={84} step={6} value={months} className="tap w-full accent-accent-strong"
                 onChange={(e) => { touched.current = true; setMonths(Number(e.target.value)) }} />
             </label>
           </div>
         </>
       )}
-      {failed && <p role="alert" className="mt-2 text-sm text-sindoor">{t('afford.failed')}</p>}
-      <p className="mt-3 text-sm text-soft">{t('afford.note')}{a.scheme_id === 'pmegp' ? ' ' + t('afford.pmegp_note') : ''}</p>
+      {failed && <p role="alert" className="mt-2 text-sm text-danger">{t('afford.failed')}</p>}
+      <p className="mt-3 text-sm text-muted-foreground">{t('afford.note')}{a.scheme_id === 'pmegp' ? ' ' + t('afford.pmegp_note') : ''}</p>
     </section>
   )
 }

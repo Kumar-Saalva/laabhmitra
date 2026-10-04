@@ -1,51 +1,149 @@
 @import "tailwindcss";
 
-/* Passbook palette: pale ledger paper, indigo ink, and one colour per readiness tier. */
+/*
+  Design tokens: the "Serif" editorial system, adapted for a phone-first task app in
+  English, Kannada and Hindi. This file is the single source for colour, type and shape.
+  DESIGN.md describes how to use them.
+*/
 @theme {
-  --color-paper: #e9f0ec;
-  --color-sheet: #fbfcfa;
-  --color-ink: #14304a;
-  --color-soft: #4d6377;
-  --color-rule: #c7d5cd;
-  --color-leaf: #1b7447;
-  --color-leaf-wash: #e2f1e8;
-  --color-turmeric: #8f5f00;
-  --color-turmeric-wash: #faecc4;
-  --color-step: #1f5fa8;
-  --color-step-wash: #e1ecf9;
-  --color-sindoor: #a8321f;
-  --color-sindoor-wash: #f8e4df;
-  --color-slate-wash: #e6ebef;
-  --font-sans: "Anek Latin Variable", "Anek Kannada Variable", "Anek Devanagari Variable", "Nirmala UI", system-ui, sans-serif;
+  /* Surfaces and text */
+  --color-background: #fafaf8;        /* warm ivory page */
+  --color-foreground: #1a1a1a;        /* rich black text */
+  --color-muted: #f5f3f0;             /* secondary surfaces */
+  --color-muted-foreground: #6b6b6b;  /* secondary text */
+  --color-card: #ffffff;
+  --color-border: #e8e4df;            /* rules and dividers */
+  --color-border-hover: #cfc8bf;
+
+  /* Burnished gold. `accent` is for rules, focus rings and large marks only: it is too
+     light for text (3.2:1 on white). Text, links and buttons use `accent-strong` (5.3:1). */
+  --color-accent: #b8860b;
+  --color-accent-secondary: #d4a84b;
+  --color-accent-strong: #8a6508;
+  --color-accent-deep: #6f5106;
+  --color-accent-wash: #f8f2e3;
+  --color-ring: #b8860b;
+
+  /* Status colours. Each one means exactly one thing (readiness tier or check result). */
+  --color-success: #2e6b3e;
+  --color-success-wash: #e6f0e4;
+  --color-warning: #9a4f0a;
+  --color-warning-wash: #fbe9d5;
+  --color-info: #2a5a8c;
+  --color-info-wash: #e4ecf5;
+  --color-danger: #9c2f22;
+  --color-danger-wash: #f7e3de;
+
+  /* One stack per role. The browser picks the Kannada or Devanagari face per character,
+     so headings stay serif and body stays sans in all three languages. */
+  --font-serif: "Playfair Display Variable", "Noto Serif Kannada Variable", "Noto Serif Devanagari Variable", Georgia, serif;
+  --font-sans: "Source Sans 3 Variable", "Noto Sans Kannada Variable", "Noto Sans Devanagari Variable", "Nirmala UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Very soft shadows: refinement, not depth. */
+  --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.04);
+  --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.06);
+  --shadow-lg: 0 8px 24px rgba(26, 26, 26, 0.08);
 }
 
-html { background: var(--color-paper); }
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  color: var(--color-ink);
-  font-size: 1.0625rem;
-  line-height: 1.5;
-  font-variation-settings: "wdth" 100;
+@layer base {
+  html { background: var(--color-background); }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--color-foreground);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-weight: 500; }
+  h2, h3 { font-weight: 600; }
+
+  /* Kannada and Devanagari carry marks above and below the line: give them room, no tracking. */
+  :lang(kn) body, :lang(hi) body { line-height: 1.8; letter-spacing: 0; }
+  :lang(kn) :is(h1, h2, h3), :lang(hi) :is(h1, h2, h3) { line-height: 1.45; letter-spacing: 0; }
+
+  :focus-visible { outline: 2px solid var(--color-ring); outline-offset: 2px; border-radius: 2px; }
+
+  button, a, input, select, textarea { touch-action: manipulation; }
 }
-:lang(kn) body, :lang(hi) body { line-height: 1.65; }
 
-h1, h2, h3 { line-height: 1.15; font-weight: 650; letter-spacing: -0.01em; }
-:lang(kn) :is(h1, h2, h3), :lang(hi) :is(h1, h2, h3) { line-height: 1.35; letter-spacing: 0; }
+@layer components {
+  /* Card: white on ivory, a thin warm rule, barely any shadow. */
+  .card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+  /* Featured card: the thin gold line along the top edge. */
+  .card-accent { border-top: 2px solid var(--color-accent); }
 
-/* Amounts line up like figures in a passbook column. */
-.figure { font-variant-numeric: tabular-nums; font-variation-settings: "wdth" 88; font-weight: 650; }
+  /* Small-caps label: tracked uppercase mono. Only scripts with capitals get this treatment. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent-strong);
+  }
+  :lang(kn) .label, :lang(hi) .label {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
 
-/* A ledger page: ruled sheet with the red margin line of a bank passbook. */
-.ledger {
-  background: var(--color-sheet);
-  border: 1px solid var(--color-rule);
-  border-left: 3px double var(--color-sindoor);
+  /* Amounts in tables and rows: lined up like figures in a column. */
+  .figure { font-variant-numeric: tabular-nums lining-nums; font-weight: 600; }
+  /* The few big numbers: serif, at display size. */
+  .display-figure { font-family: var(--font-serif); font-variant-numeric: lining-nums; font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; }
+
+  /* Buttons. The same classes style <button>, <a> and <Link>. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: background-color 200ms ease-out, border-color 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn-primary { background: var(--color-accent-strong); color: #fff; padding: 0 1.25rem; font-weight: 600; box-shadow: var(--shadow-sm); }
+  .btn-primary:hover:not(:disabled) { background: var(--color-accent-deep); box-shadow: var(--shadow-md); }
+  .btn-outline { border: 1px solid var(--color-foreground); padding: 0 1rem; }
+  .btn-outline:hover:not(:disabled) { background: var(--color-muted); border-color: var(--color-accent-strong); color: var(--color-accent-strong); }
+  .btn-chip { border: 1px solid var(--color-border-hover); background: var(--color-card); padding: 0 1rem; border-radius: 9999px; }
+  .btn-chip:hover:not(:disabled) { border-color: var(--color-accent-strong); background: var(--color-accent-wash); }
+
+  /* Text link: dark gold with a fine underline. */
+  .link { color: var(--color-accent-strong); text-decoration: underline; text-decoration-color: var(--color-accent-secondary); text-underline-offset: 4px; }
+  .link:hover { text-decoration-color: var(--color-accent-strong); }
+
+  /* Notice: a tinted panel with a fine border in its own tone. */
+  .notice { border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-muted); }
+  .notice-success { background: var(--color-success-wash); border-color: color-mix(in srgb, var(--color-success) 30%, transparent); }
+  .notice-warning { background: var(--color-warning-wash); border-color: color-mix(in srgb, var(--color-warning) 30%, transparent); }
+  .notice-info { background: var(--color-info-wash); border-color: color-mix(in srgb, var(--color-info) 30%, transparent); }
+  .notice-danger { background: var(--color-danger-wash); border-color: color-mix(in srgb, var(--color-danger) 30%, transparent); }
+
+  /* The decorative rule under a headline. */
+  .headline-rule { width: 3rem; height: 1px; background: var(--color-accent); border: 0; }
+
+  .tap { min-height: 44px; }
 }
-
-.tap { min-height: 44px; }
-
-:focus-visible { outline: 3px solid var(--color-step); outline-offset: 2px; border-radius: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

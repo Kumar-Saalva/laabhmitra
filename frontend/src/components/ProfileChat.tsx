@@ -56,11 +56,11 @@ function MicButton({ onText }: { onText: (text: string) => void }) {
   return (
     <>
       <button type="button" onClick={start} disabled={listening} aria-label={t('chat.mic')} title={t('chat.mic')}
-        className={`tap inline-flex w-12 shrink-0 items-center justify-center rounded-md border ${listening ? 'border-sindoor bg-sindoor-wash text-sindoor' : 'border-ink/30 hover:border-ink'}`}>
+        className={`tap inline-flex w-12 shrink-0 items-center justify-center rounded-md border ${listening ? 'border-danger bg-danger-wash text-danger' : 'border-foreground/30 hover:border-foreground'}`}>
         <Icon name="mic" />
       </button>
       <span role="status" className="sr-only">{listening ? t('chat.listening') : failed ? t('chat.mic_failed') : ''}</span>
-      {failed && <span className="absolute -top-6 left-0 text-sm text-sindoor">{t('chat.mic_failed')}</span>}
+      {failed && <span className="absolute -top-6 left-0 text-sm text-danger">{t('chat.mic_failed')}</span>}
     </>
   )
 }
@@ -79,7 +79,7 @@ function Chips({ field, question, onAnswer }: { field: string; question: Questio
       ))}
       {question.sensitive
         ? <Button variant="chip" className="border-dashed" onClick={() => question.preferNot ? onAnswer(question.preferNot, t('answer.prefer_not')) : skip(field)}>{t('answer.prefer_not')}</Button>
-        : <Button variant="chip" className="border-dashed text-soft" onClick={() => skip(field)}>{t('answer.skip')}</Button>}
+        : <Button variant="chip" className="border-dashed text-muted-foreground" onClick={() => skip(field)}>{t('answer.skip')}</Button>}
     </div>
   )
 }
@@ -136,12 +136,12 @@ export function ProfileChat() {
 
   const bubble = (m: Message, key: number | string) => (
     <div key={key} className={m.from === 'me' ? 'flex justify-end' : ''}>
-      <p className={`max-w-[85%] whitespace-pre-line rounded-lg px-3.5 py-2 ${m.from === 'me' ? 'rounded-br-sm bg-ink text-sheet' : 'rounded-bl-sm bg-paper'}`}>{m.text}</p>
+      <p className={`max-w-[85%] whitespace-pre-line rounded-lg px-3.5 py-2 ${m.from === 'me' ? 'rounded-br-sm bg-foreground text-card' : 'rounded-bl-sm bg-muted'}`}>{m.text}</p>
     </div>
   )
 
   return (
-    <section aria-label={t('chat.title')} className="ledger flex flex-col">
+    <section aria-label={t('chat.title')} className="card flex flex-col">
       <div className="max-h-[26rem] min-h-[14rem] space-y-3 overflow-y-auto p-4" aria-live="polite">
         {bubble({ from: 'bot', text: t('chat.hello') }, 'hello')}
         {messages.map(bubble)}
@@ -149,17 +149,17 @@ export function ProfileChat() {
         {!busy && field && question && (
           <div>
             {bubble({ from: 'bot', text: t(`q.${field}`) }, 'question')}
-            {(question.sensitive || question.note) && <p className="mt-1.5 max-w-[85%] text-sm text-soft">{t(`why.${field}`)}</p>}
+            {(question.sensitive || question.note) && <p className="mt-1.5 max-w-[85%] text-sm text-muted-foreground">{t(`why.${field}`)}</p>}
             <Chips field={field} question={question} onAnswer={answer} />
           </div>
         )}
         {!busy && !field && evaluation && !error && bubble({ from: 'bot', text: t('chat.done') }, 'done')}
         <div ref={endRef} />
       </div>
-      <form onSubmit={send} className="relative flex gap-2 border-t border-rule p-3">
+      <form onSubmit={send} className="relative flex gap-2 border-t border-border p-3">
         <label htmlFor="chat-input" className="sr-only">{t('chat.placeholder')}</label>
         <input id="chat-input" value={text} onChange={(e) => setText(e.target.value)} placeholder={t('chat.placeholder')}
-          autoComplete="off" className="tap min-w-0 flex-1 rounded-md border border-ink/30 bg-white px-3" />
+          autoComplete="off" className="tap min-w-0 flex-1 rounded-md border border-border-hover bg-card transition-colors duration-150 hover:border-accent-strong focus:border-accent-strong px-3" />
         <MicButton onText={setText} />
         <Button type="submit" variant="primary" disabled={busy || !text.trim()}>{t('chat.send')}</Button>
       </form>

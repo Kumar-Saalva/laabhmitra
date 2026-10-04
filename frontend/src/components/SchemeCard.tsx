@@ -1,4 +1,4 @@
-// One scheme as a ledger entry: tier, criteria count, money buckets (kept apart), source, actions.
+// One scheme as a card entry: tier, criteria count, money buckets (kept apart), source, actions.
 import { Link } from 'react-router-dom'
 import { formatINR, formatRange } from '../lib/format'
 import { useStore } from '../lib/store'
@@ -33,7 +33,7 @@ export function Buckets({ result }: { result: SchemeResult }) {
     <dl className="mt-3 grid gap-x-4 gap-y-1 sm:grid-cols-[11rem_1fr]">
       {rows.map((row) => (
         <div key={row.label} className="contents">
-          <dt className="text-sm text-soft sm:pt-0.5">{row.label}</dt>
+          <dt className="text-sm text-muted-foreground sm:pt-0.5">{row.label}</dt>
           <dd className={row.figure ? 'figure' : ''}>{row.value}</dd>
         </div>
       ))}
@@ -46,14 +46,14 @@ export function SchemeCard({ result }: { result: SchemeResult }) {
   const { scheme } = result
   const blocked = result.tier === 'not_now' || result.tier === 'one_step'
   return (
-    <article className="border-b border-rule py-5 last:border-b-0">
+    <article className="border-b border-border py-7 last:border-b-0">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <h3 className="text-xl">
-          <Link to={`/scheme/${scheme.id}`} className="hover:underline">{scheme.short_name}</Link>
+          <Link to={`/scheme/${scheme.id}`} className="decoration-accent underline-offset-4 hover:underline">{scheme.short_name}</Link>
         </h3>
         <TierBadge tier={result.tier} />
       </div>
-      <p className="mt-1 text-sm text-soft">
+      <p className="mt-1 text-sm text-muted-foreground">
         {t('card.criteria', { met: result.met, total: result.total, unknown: result.unknown })}
       </p>
       <p className="mt-2 max-w-[68ch]">{scheme.summary_plain}</p>
@@ -64,12 +64,12 @@ export function SchemeCard({ result }: { result: SchemeResult }) {
       <div className="mt-3"><SourceBadge scheme={scheme} stale={result.stale} /></div>
       <div className="mt-3 flex flex-wrap gap-2">
         <Link to={`/scheme/${scheme.id}?ask=${blocked ? 'why_not' : 'why'}`}
-          className="tap inline-flex items-center rounded-md bg-ink px-4 font-semibold text-sheet hover:bg-ink/90">
+          className="btn btn-primary">
           {t(blocked ? 'card.why_not' : 'card.why')}
         </Link>
         {scheme.application.url && (
           <a href={scheme.application.url} target="_blank" rel="noreferrer"
-            className="tap inline-flex items-center gap-1.5 rounded-md border border-ink/30 px-4 hover:border-ink">
+            className="btn btn-outline">
             <Icon name="link" className="h-4 w-4" />{t('card.official')}
           </a>
         )}

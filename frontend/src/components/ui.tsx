@@ -27,22 +27,19 @@ export function Icon({ name, className = 'h-5 w-5' }: { name: keyof typeof PATHS
 }
 
 type Variant = 'primary' | 'quiet' | 'chip'
-const VARIANTS: Record<Variant, string> = {
-  primary: 'bg-ink text-sheet px-5 font-semibold hover:bg-ink/90 disabled:bg-soft/50',
-  quiet: 'border border-ink/30 bg-sheet px-4 font-medium hover:border-ink disabled:opacity-50',
-  chip: 'border border-ink/30 bg-sheet px-4 hover:border-ink hover:bg-paper rounded-full',
-}
+// Button styles live in index.css (.btn-*), so <button>, <a> and <Link> all share them.
+const VARIANTS: Record<Variant, string> = { primary: 'btn-primary', quiet: 'btn-outline', chip: 'btn-chip' }
 
 export function Button({ variant = 'quiet', className = '', ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant }) {
   return <button type="button" {...props}
-    className={`tap inline-flex items-center justify-center gap-2 rounded-md text-base transition-colors ${VARIANTS[variant]} ${className}`} />
+    className={`btn text-base ${VARIANTS[variant]} ${className}`} />
 }
 
 export function Loading({ label }: { label?: string }) {
   const { t } = useStore()
   return (
-    <div role="status" className="flex items-center gap-3 py-8 text-soft">
-      <span className="h-4 w-4 animate-spin rounded-full border-2 border-rule border-t-ink" />
+    <div role="status" className="flex items-center gap-3 py-8 text-muted-foreground">
+      <span className="h-4 w-4 animate-spin rounded-full border-2 border-border border-t-foreground" />
       {label ?? t('state.loading')}
     </div>
   )
@@ -52,8 +49,8 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry?: ()
   const { t } = useStore()
   const offline = message === 'offline'
   return (
-    <div role="alert" className="my-4 border-l-4 border-sindoor bg-sindoor-wash p-4">
-      <p className="flex items-start gap-2 font-semibold text-sindoor"><Icon name="alert" className="mt-0.5 h-5 w-5 shrink-0" />
+    <div role="alert" className="my-4 notice notice-danger p-4">
+      <p className="flex items-start gap-2 font-semibold text-danger"><Icon name="alert" className="mt-0.5 h-5 w-5 shrink-0" />
         {offline ? t('state.offline') : t('state.error')}</p>
       <p className="mt-1 text-sm">{offline ? t('state.offline_help') : message}</p>
       {onRetry && <Button className="mt-3" onClick={onRetry}>{t('state.retry')}</Button>}
@@ -63,9 +60,9 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry?: ()
 
 export function EmptyState({ title, children }: { title: string; children?: ReactNode }) {
   return (
-    <div className="border border-dashed border-rule p-6 text-center">
+    <div className="rounded-lg border border-dashed border-border-hover p-8 text-center">
       <p className="font-semibold">{title}</p>
-      {children && <div className="mt-2 text-soft">{children}</div>}
+      {children && <div className="mt-2 text-muted-foreground">{children}</div>}
     </div>
   )
 }
@@ -76,7 +73,7 @@ export function NeedProfile() {
   return (
     <EmptyState title={t('state.no_profile')}>
       <p>{t('state.no_profile_help')}</p>
-      <Link to="/" className="tap mt-4 inline-flex items-center rounded-md bg-ink px-5 font-semibold text-sheet">{t('nav.profile')}</Link>
+      <Link to="/" className="btn btn-primary mt-4">{t('nav.profile')}</Link>
     </EmptyState>
   )
 }
@@ -84,10 +81,22 @@ export function NeedProfile() {
 export function PageTitle({ title, lead, back }: { title: string; lead?: string; back?: string }) {
   const { t } = useStore()
   return (
-    <header className="mb-5">
-      {back && <Link to={back} className="tap -ml-1 inline-flex items-center gap-1 text-soft hover:text-ink"><Icon name="back" className="h-4 w-4" />{t('nav.back')}</Link>}
-      <h1 className="text-[1.75rem] sm:text-[2.1rem]">{title}</h1>
-      {lead && <p className="mt-2 max-w-[62ch] text-soft">{lead}</p>}
+    <header className="mb-7">
+      {back && <Link to={back} className="tap -ml-1 inline-flex items-center gap-1 text-muted-foreground hover:text-foreground"><Icon name="back" className="h-4 w-4" />{t('nav.back')}</Link>}
+      <h1 className="text-[1.9rem] sm:text-[2.5rem]">{title}</h1>
+      <hr className="headline-rule mt-3" />
+      {lead && <p className="mt-3 max-w-[62ch] text-lg text-muted-foreground">{lead}</p>}
     </header>
+  )
+}
+
+// Editorial section label: a small-caps word between two fine rules.
+export function SectionLabel({ children }: { children: ReactNode }) {
+  return (
+    <div className="mb-4 flex items-center gap-4">
+      <span className="h-px flex-1 bg-border" />
+      <span className="label">{children}</span>
+      <span className="h-px flex-1 bg-border" />
+    </div>
   )
 }

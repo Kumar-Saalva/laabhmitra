@@ -16,23 +16,28 @@ function Consent() {
   const [agreed, setAgreed] = useState(false)
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="text-[2.2rem] sm:text-[3rem]">{t('welcome.title')}</h1>
-      <p className="mt-3 max-w-[58ch] text-lg text-soft">{t('welcome.lead')}</p>
+      {/* The one large serif moment in the app. */}
+      <div className="py-4 text-center sm:py-10">
+        <p className="label">{t('app.name')}</p>
+        <h1 className="mt-4 text-[2.5rem] leading-[1.1] tracking-[-0.02em] sm:text-[3.75rem]">{t('welcome.title')}</h1>
+        <hr className="headline-rule mx-auto mt-6" />
+        <p className="mx-auto mt-6 max-w-[52ch] text-lg text-muted-foreground">{t('welcome.lead')}</p>
+      </div>
 
-      <fieldset className="mt-7">
-        <legend className="font-semibold">{t('welcome.language')}</legend>
-        <div className="mt-2 flex flex-wrap gap-2">
+      <fieldset className="mt-4 text-center">
+        <legend className="label mx-auto">{t('welcome.language')}</legend>
+        <div className="mt-3 flex flex-wrap justify-center gap-2">
           {LANGUAGES.map((l) => (
             <button key={l.code} type="button" onClick={() => setLang(l.code)} aria-pressed={lang === l.code} lang={l.code}
-              className={`tap rounded-md border px-5 text-lg ${lang === l.code ? 'border-ink bg-ink text-sheet' : 'border-ink/30 bg-sheet hover:border-ink'}`}>
+              className={`tap rounded-md border px-5 text-lg transition-colors duration-200 ${lang === l.code ? 'border-foreground bg-foreground text-card' : 'border-border-hover bg-card hover:border-accent-strong'}`}>
               {l.name}
             </button>
           ))}
         </div>
       </fieldset>
 
-      <section className="ledger mt-7 p-5">
-        <h2 className="text-xl">{t('consent.title')}</h2>
+      <section className="card card-accent mt-10 p-6 sm:p-10">
+        <h2 className="text-2xl">{t('consent.title')}</h2>
         <ul className="mt-3 list-disc space-y-1.5 pl-5">
           <li>{t('consent.use')}</li>
           <li>{t('consent.no_ids')}</li>
@@ -40,10 +45,10 @@ function Consent() {
           <li>{t('consent.no_submit')}</li>
         </ul>
         <label className="tap mt-4 flex cursor-pointer items-start gap-3">
-          <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-1 h-5 w-5 accent-ink" />
+          <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="mt-1 h-5 w-5 accent-accent-strong" />
           <span>{t('consent.agree')}</span>
         </label>
-        <Button variant="primary" className="mt-4 w-full sm:w-auto" disabled={!agreed} onClick={giveConsent}>{t('consent.start')}</Button>
+        <Button variant="primary" className="mt-5 w-full sm:w-auto" disabled={!agreed} onClick={giveConsent}>{t('consent.start')}</Button>
       </section>
     </div>
   )
@@ -53,21 +58,21 @@ function BusinessCard() {
   const { t, profile } = useStore()
   const filled = CARD_FIELDS.filter((f) => profile[f] != null && profile[f] !== '')
   return (
-    <section className="ledger p-5" aria-live="polite">
+    <section className="card p-5 sm:p-8" aria-live="polite">
       <h2 className="text-xl">{t('business.title')}</h2>
       {filled.length === 0 ? (
-        <p className="mt-2 text-soft">{t('business.empty')}</p>
+        <p className="mt-2 text-muted-foreground">{t('business.empty')}</p>
       ) : (
-        <dl className="mt-3 divide-y divide-rule/70">
+        <dl className="mt-3 divide-y divide-border/70">
           {filled.map((f) => (
             <div key={f} className="flex justify-between gap-4 py-1.5">
-              <dt className="text-soft">{t(`field.${f}`)}</dt>
+              <dt className="text-muted-foreground">{t(`field.${f}`)}</dt>
               <dd className={`text-right font-medium ${f.endsWith('_inr') ? 'figure' : ''}`}>{showValue(t, f, profile[f])}</dd>
             </div>
           ))}
         </dl>
       )}
-      <p className="mt-3 text-sm text-soft">{t('business.privacy')}</p>
+      <p className="mt-3 text-sm text-muted-foreground">{t('business.privacy')}</p>
     </section>
   )
 }
@@ -114,7 +119,7 @@ export default function Onboard() {
             <Button variant="primary" disabled={!hasBasics(profile) || saving} onClick={() => finish()}>
               {saving ? t('state.saving') : t('onboard.see_results')}
             </Button>
-            {!hasBasics(profile) && <span className="text-sm text-soft">{t('onboard.need_basics')}</span>}
+            {!hasBasics(profile) && <span className="text-sm text-muted-foreground">{t('onboard.need_basics')}</span>}
             {Object.keys(profile).length > 0 && <Button onClick={reset}>{t('onboard.start_over')}</Button>}
           </div>
         </div>
@@ -122,16 +127,16 @@ export default function Onboard() {
           <BusinessCard />
           <section>
             <h2 className="text-lg">{t('demo.title')}</h2>
-            <p className="text-sm text-soft">{t('demo.lead')}</p>
+            <p className="text-sm text-muted-foreground">{t('demo.lead')}</p>
             <div className="mt-2 grid gap-2">
               {Object.entries(personas).map(([key, persona]) => (
                 <button key={key} type="button" onClick={() => loadPersona(key)} disabled={saving}
-                  className="tap rounded-md border border-ink/30 bg-sheet px-4 py-2 text-left hover:border-ink">
+                  className="tap rounded-md border border-border bg-card px-4 py-2 text-left transition-colors duration-200 hover:border-accent-strong hover:bg-muted">
                   <span className="font-semibold">{persona.display_name}</span>
-                  <span className="block text-sm text-soft">{persona.story}</span>
+                  <span className="block text-sm text-muted-foreground">{persona.story}</span>
                 </button>
               ))}
-              {Object.keys(personas).length === 0 && <p className="text-sm text-soft">{t('demo.none')}</p>}
+              {Object.keys(personas).length === 0 && <p className="text-sm text-muted-foreground">{t('demo.none')}</p>}
             </div>
           </section>
         </div>
