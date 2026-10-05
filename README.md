@@ -128,3 +128,17 @@ AGENTS.md        the full spec
 - Schemes marked "Check current status" or "Announced" must be re-checked on the official
   source before demo day.
 - Out of scope: submitting applications, Aadhaar/DigiLocker, live scraping, lending or legal advice.
+
+## Put it online (one web address)
+
+The repo includes a `Dockerfile` and a `render.yaml`, so the whole app runs as one web service:
+the API also serves the built web app.
+
+1. Open https://render.com and sign in with GitHub.
+2. New → Blueprint → pick the `laabhmitra` repository → Apply.
+3. Wait for the first build (about 5 minutes). Render then shows the address,
+   for example `https://laabhmitra.onrender.com`.
+
+Notes for the free plan: the service sleeps after about 15 minutes without visitors and takes
+up to a minute to wake on the next visit. Saved profiles are kept in a temporary database, so
+they reset when the service restarts; the three demo personas are loaded again each time.

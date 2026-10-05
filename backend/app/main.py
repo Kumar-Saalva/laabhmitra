@@ -1,9 +1,11 @@
 """LaabhMitra API. AI explains. Rules decide. Government sources confirm."""
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 from app import data, store
 from app.llm.provider import get_provider
@@ -43,3 +45,19 @@ for module in (schemes, profiles, evaluate, explain, pack, project, admin):
 def health():
     return {"status": "ok", "schemes": len(data.schemes()), "llm_provider": get_provider().name,
             "demo_mode": DEMO_MODE}
+
+
+# Hosted mode: when the frontend has been built (frontend/dist), this one service also
+# serves the web app, so a single web address runs everything. In development the Vite
+# dev server serves the frontend instead and this block does nothing.
+DIST = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+
+if DIST.is_dir():
+    @app.get("/{path:path}", include_in_schema=False)
+    def web_app(path: str):
+        if path.startswith("api/"):
+            raise HTTPException(404, "Not Found")
+        file = (DIST / path).resolve()
+        if path and file.is_file() and DIST in file.parents:
+            return FileResponse(file)
+        return FileResponse(DIST / "index.html")      # the React router handles the page
